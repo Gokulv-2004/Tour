@@ -1,0 +1,132 @@
+@font-face{
+    src:url(fonts/EduAUVICWANTArrows-VariableFont_wght.ttf);
+    font-family: line;
+}
+@font-face{
+    src:url(fonts/KalniaGlaze-VariableFont_wdth\,wght.ttf);
+    font-family: font2;
+}
+*{
+    font-family: font2;
+    font-size: 1em;
+    font-weight: 500;
+}
+
+body{
+    background:linear-gradient( to left, skyblue ,rgb(216, 165, 165));
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: font2;
+    font-size: 1.5em;
+    font-weight: 500    ;
+    /* text-shadow: 2px 2px 10px black, -2px -2px 5px */
+}
+
+.end{
+    margin-bottom: 10%;
+}
+img{
+    border: solid rgb(124, 197, 219) 5px ;
+    width: 450px;
+    height: 400px;
+    justify-content: center;
+    border-radius: 20px;
+    
+}
+
+#search {
+    margin-top: 25px;
+    text-align: center;
+    
+}
+#inputbox{
+    background-color: linear-gradient(skyblue,rgb(216,165,165));
+}
+div label{
+    font-size:x-large;
+    font-weight:600;
+    font-style: italic;
+}
+div input{
+    border-radius: 5px;
+    font-size: larger;
+}
+button{
+    font-size: x-large;
+    margin: 10px;
+    padding: 5px;
+}
+footer{
+    margin-top: 20%;
+    padding: 20px;
+    background-color: #81b6d5;
+    font-weight: 900;
+    text-align: center;
+    padding: 5px;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+} 
+pre{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: larger;
+    text-align: center;
+    font-weight: 800;
+    font-style: italic;
+    font-variant:small-caps;
+
+}
+h1{
+    text-align: center;
+    font-style:italic;
+    font-stretch:narrower;
+}
+.Top{
+    border-style: dotted;
+    border-color:crimson;
+    border-radius: 10PX;
+    background-color: black;
+    color:gold;
+}
+#spring {
+    display: grid;
+    grid-template-columns: repeat(2 , 1fr);
+    margin: 20px;
+    justify-content: center;
+    text-align: center;
+    
+}
+#summer{
+    display: grid;
+    grid-template-columns: repeat(2 , 1fr);
+    margin: 20px;
+    justify-content: center;
+    text-align: center;
+    
+}
+#monsoon {
+    display: grid;
+    grid-template-columns: repeat(2 , 1fr);
+    margin: 20px;
+    justify-content: center;
+    text-align: center;
+    
+}
+#winter {
+    display: grid;
+    grid-template-columns: repeat(2 , 1fr);
+    margin: 20px;
+    justify-content: center;
+    text-align: center;
+    
+}
+button{
+    display: flex;
+    grid-template-columns: repeat(1,1fr);
+    border-radius: 15px;
+    background-color: black;
+    color: rgb(238, 200, 206);
+    justify-content:center;
+    text-align: center;
+    margin-left :50%;
+}
