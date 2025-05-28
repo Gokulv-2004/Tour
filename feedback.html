@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/webp" href="/image/icon.webp" />
+  <title>Contact Us | Pack Your Bag</title>
+  <style>
+    body {
+      background: linear-gradient(to left, skyblue, #a0e9ff);
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      padding-bottom: 70px;
+      color: #222;
+    }
+
+    footer {
+      background-color: #3aaed8;
+      font-weight: 900;
+      text-align: center;
+      padding: 10px 0;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      color: white;
+      border-top: 1px solid #d9f3ff;
+    }
+
+    h1 {
+      text-align: center;
+      color: #0077b6;
+      margin-top: 30px;
+    }
+
+    p {
+      font-size: x-large;
+      text-align: center;
+      margin: 10px 0;
+    }
+
+    form {
+      max-width: 500px;
+      margin: 0 auto 50px auto;
+      background: ghostwhite;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0, 191, 255, 0.3);
+    }
+
+    form label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: large;
+      color: #0077b6;
+    }
+
+    form input,
+    form textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      font-size: 16px;
+      border: 1px solid #aaa;
+      border-radius: 8px;
+      background-color: #f8faff;
+      box-sizing: border-box;
+    }
+
+    form button {
+      background-color: #00aaff;
+      border: none;
+      padding: 12px 25px;
+      font-size: large;
+      font-weight: 700;
+      border-radius: 10px;
+      cursor: pointer;
+      color: white;
+      transition: background-color 0.3s ease;
+      width: 100%;
+    }
+
+    form button:hover {
+      background-color: #0077b6;
+    }
+
+    .working-hours {
+      max-width: 650px;
+      margin: 20px auto;
+      font-size: large;
+      text-align: center;
+      background: ghostwhite;
+      border-radius: 15px;
+      padding: 20px;
+      font-style: italic;
+      font-weight: 600;
+      box-shadow: 0 0 10px rgba(135, 206, 235, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <h1>Contact Us</h1>
+  <div class="working-hours">
+    <p><strong>Working Hours:</strong> Monday - Saturday, 9:00 AM - 7:00 PM</p>
+    <p><strong>Email:</strong> support@packyourbag.com</p>
+    <p><strong>Phone:</strong> +91-9876543210</p>
+  </div>
+
+  <form id="contactForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" placeholder="Your full name" required />
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" placeholder="Your email address" required />
+
+    <label for="phone">Phone Number:</label>
+    <input type="tel" id="phone" name="phone" placeholder="10-digit mobile number" pattern="[0-9]{10}" required />
+
+    <label for="message">Message:</label>
+    <textarea id="message" name="message" rows="5" placeholder="Write your message here" required></textarea>
+
+    <button type="submit">Send Message</button>
+  </form>
+
+  <footer>
+    Pack Your Bag's Services Limited.
+  </footer>
+
+  <script>
+    document.getElementById("contactForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const message = document.getElementById("message").value.trim();
+
+      if (!name || !email || !phone || !message) {
+        alert("Please fill all fields.");
+        return;
+      }
+
+      const contactMessages = JSON.parse(localStorage.getItem("contactMessages")) || [];
+      contactMessages.push({ name, email, phone, message });
+      localStorage.setItem("contactMessages", JSON.stringify(contactMessages));
+
+      alert("Message sent successfully!");
+      this.reset();
+    });
+  </script>
+</body>
+</html>

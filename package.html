@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/webp" href="/image/icon.webp" />
   <title>Travel Packages</title>
   <style>
     body {
@@ -24,18 +25,18 @@
       gap: 20px;
       margin-top: 30px;
     }
-    .book-now{
+
+    .book-now {
       margin-top: 25px;
       padding: 12px 20px;
       text-decoration: none;
       font-size: 16px;
       background-color: #00796b;
-    color: white;
-    border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.3s;
-
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
     }
 
     .package {
@@ -58,7 +59,7 @@
       font-size: 24px;
       color: #333;
     }
-    
+
     .package p {
       color: #555;
     }
@@ -77,50 +78,62 @@
   <div id="packageList"></div>
 
   <script>
-    fetch('places.json')
-      .then(response => {
-        if (!response.ok) throw new Error("Failed to load places.");
-        return response.json();
-      })
-      .then(places => {
-        const packageList = document.getElementById("packageList");
+    async function loadPackages() {
+      const packageList = document.getElementById("packageList");
+      let allPlaces = [];
 
-        places.forEach(place => {
-          const anchorId = place.name.trim().replace(/\s+/g, '-').toLowerCase();
+      try {
+        const response = await fetch('places.json');
+        const placesFromJson = await response.json();
+        allPlaces = [...placesFromJson];
+      } catch (err) {
+        console.warn("places.json couldn't be loaded.", err);
+      }
 
-          const anchor = document.createElement('a');
-          anchor.className = "anchor";
-          anchor.id = anchorId;
+      const localPlaces = JSON.parse(localStorage.getItem("places") || "[]");
+      allPlaces = [...allPlaces, ...localPlaces];
 
-          const packageDiv = document.createElement("div");
-          packageDiv.className = "package";
+      if (allPlaces.length === 0) {
+        packageList.innerHTML = "<p>No packages found.</p>";
+        return;
+      }
 
-          packageDiv.innerHTML = `
-            <img src="${place.img}" style="aspect-ratio:2; background-size:cover;" alt="${place.name}">
-            <h3>${place.name}</h3>
-            <p>${place.desc}</p>
-            <span>Price: ₹${place.price}</span>
-            <a href="/booking.html" class="book-now">Book Now</a>
-          `;
+      allPlaces.forEach(place => {
+        const anchorId = place.name.trim().replace(/\s+/g, '-').toLowerCase();
 
-          packageList.appendChild(anchor);
-          packageList.appendChild(packageDiv);
-        });
+        const anchor = document.createElement('a');
+        anchor.className = "anchor";
+        anchor.id = anchorId;
 
-        const hash = window.location.hash.substring(1);
-        if (hash) {
-          setTimeout(() => {
-            const target = document.getElementById(hash);
-            if (target) {
-              target.scrollIntoView({ behavior: "smooth" });
-            }
-          }, 100);
-        }
-      })
-      .catch(error => {
-        console.error("Error:", error);
-        document.getElementById("packageList").innerHTML = "<p>Error loading packages.</p>";
+        const packageDiv = document.createElement("div");
+        packageDiv.className = "package";
+
+        packageDiv.innerHTML = `
+          <img src="${place.img}" style="aspect-ratio:2; object-fit:cover;" alt="${place.name}">
+          <h3>${place.name}</h3>
+          <p>${place.desc}</p>
+          <span>Price: ₹${place.price}</span>
+          <a href="/booking.html?place=Coorg&price=4500" class="book-now">Book Now</a>
+
+        `;
+
+        packageList.appendChild(anchor);
+        packageList.appendChild(packageDiv);
       });
+
+      // Handle hash-based scrolling
+      const hash = window.location.hash.substring(1);
+      if (hash) {
+        setTimeout(() => {
+          const target = document.getElementById(hash);
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 100);
+      }
+    }
+
+    loadPackages();
   </script>
 
 </body>

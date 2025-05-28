@@ -15,11 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'SHRAVANBELGOLA': 'seven',
     'CHIKMAGALURE': 'eight',
     'ISKCON': 'nine',
-    'JOG FALLS': 'ten',
-    'SEASONAL(SPRING)': 'spring',
-    'SEASONAL(SUMMER)': 'summer',
-    'SEASONAL(MONSOON)': 'monsoon',
-    'SEASONAL(WINTER)': 'winter'
+    'JOG FALLS': 'ten'
 };
 
 

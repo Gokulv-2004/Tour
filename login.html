@@ -1,170 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <link rel="icon" type="image/webp" href="/image/icon.webp" />
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Pack Your Bag | Auth</title>
- <style>
-  @font-face {
-    font-family: font3;
-    src: url(fonts/Merienda-VariableFont_wght.ttf);
-  }
+  <link rel="icon" type="image/webp" href="/image/icon.webp" />
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to left, skyblue, #a0e9ff);
+  margin: 0;
+  padding: 40px;
+  text-align: center;
+  color: #222;
+}
 
-  body {
-    font-family: font3, Arial, sans-serif;
-    background: linear-gradient(to left, skyblue, #a0e9ff);
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    text-align: center;
-    padding: 50px;
-    margin: 0;
-    color: #222;
-  }
+h1 {
+  color: #0077b6;
+  font-weight: bold;
+}
 
-  h1 {
-    color: #0077b6;
-    font-weight: 800;
-    font-size: 2.2em;
-    margin-bottom: 25px;
-  }
+.form-container {
+  background: #fff;
+  max-width: 450px;
+  margin: auto;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 191, 255, 0.3);
+}
 
-  .form-container {
-    background: ghostwhite;
-    padding: 30px;
-    margin: 0 auto;
-    max-width: 400px;
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(0, 191, 255, 0.3);
-  }
+input, button {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  font-size: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
 
-  input, button {
-    width: 90%;
-    padding: 14px;
-    margin: 12px 0;
-    font-size: 16px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-  }
+button {
+  background-color: #00aaff;
+  color: white;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
 
-  input {
-    background-color: #f1fbff;
-    color: #333;
-  }
+button:hover {
+  background-color: #0077b6;
+}
 
-  button {
-    background-color: #00aaff;
-    color: white;
-    font-weight: 700;
-    border: none;
-    transition: background-color 0.3s ease;
-  }
+.toggle-link {
+  color: #0077b6;
+  cursor: pointer;
+  text-decoration: underline;
+  display: inline-block;
+  margin-top: 10px;
+  font-weight: 600;
+}
 
-  button:hover {
-    background-color: #0077b6;
-  }
+.password-wrapper {
+  position: relative;
+  width: 100%;
+}
 
-  .toggle-link {
-    color: #0077b6;
-    cursor: pointer;
-    text-decoration: underline;
-    font-weight: 600;
-    font-size: 0.95em;
-  }
+.password-wrapper input {
+  padding-right: 40px;
+}
 
-  footer {
-    margin-top: 20%;
-    color: #1e355d;
-    font-weight: 900;
-    text-align: center;
-    position: fixed;
-    bottom: 0px;
-    width: 100%;
-    background-color: #b3e5fc;
-    padding: 10px;
-    border-top: 1px solid #87ceeb;
-  }
-</style>
+.toggle-eye {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 18px;
+  color: #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
 
+  </style>
 </head>
 <body>
-  <h1>Pack Your Bag</h1>
-  <div class="form-container">
-    <!-- Login Form -->
-    <form id="loginForm">
-      <h2>Login</h2>
-      <input type="text" id="loginUsername" placeholder="Username" required><br>
-      <input type="password" id="loginPassword" placeholder="Password" required><br>
-      <button type="submit">Login</button>
-      <p>Don't have an account? <span class="toggle-link" onclick="toggleForms()">Sign up here</span></p>
-    </form>
 
-    <!-- Signup Form -->
-    <form id="signupForm" style="display:none;">
-      <h2>Sign Up</h2>
-      <input type="text" id="signupUsername" placeholder="Username" required><br>
-      <input type="password" id="signupPassword" minlength="8" placeholder="Password" required><br>
-      <button type="submit">Sign Up</button>
-      <p>Already have an account? <span class="toggle-link" onclick="toggleForms()">Login here</span></p>
-    </form>
-  </div>
+<h1>Pack Your Bag</h1>
+<div class="form-container">
 
-  <footer>&copy; 2025 Pack Your Bag</footer>
+  <!-- Login Form -->
+  <form id="loginForm">
+    <h2>Login</h2>
+    <input type="text" id="loginUsername" placeholder="Username or Email" required>
+    <div class="password-wrapper">
+      <input type="password" id="loginPassword" placeholder="Password" required>
+      
+      <span class="toggle-eye" onclick="toggleVisibility('loginPassword', this)"><i class="fa-solid fa-eye"></i>👁️</span>
+    </div>
+    <button type="submit">Login</button>
+    <p>Don't have an account? <span class="toggle-link" onclick="toggleForms()">Sign up here</span></p>
+  </form>
 
-  <script>
-    // Fixed admin
-    const ADMIN_USERNAME = "admin";
-    const ADMIN_PASSWORD = "admin123";
+  <!-- Signup Form -->
+  <form id="signupForm" style="display:none;">
+    <h2>Sign Up</h2>
+    <input type="text" id="fullName" placeholder="Full Name" required>
+    <input type="text" id="signupUsername" placeholder="Username" required>
+    <input type="email" id="signupEmail" placeholder="Email" required>
+    <input type="tel" id="signupPhone" placeholder="Phone Number" pattern="[0-9]{10}" required>
+    <input type="text" id="signupAddress" placeholder="Address" required>
+    
+    <div class="password-wrapper">
+      <input type="password" id="signupPassword" placeholder="Password (min 8 characters)" minlength="8" required>
+      <span class="toggle-eye" onclick="toggleVisibility('signupPassword', this)">👁️</span>
+    </div>
+    <div class="password-wrapper">
+      <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+      <span class="toggle-eye" onclick="toggleVisibility('confirmPassword', this)">👁️</span>
+    </div>
 
-    // Other users stored here (in memory only)
-    let users = {};
+    <button type="submit">Sign Up</button>
+    <p>Already have an account? <span class="toggle-link" onclick="toggleForms()">Login here</span></p>
+  </form>
 
-    function toggleForms() {
-      const loginForm = document.getElementById("loginForm");
-      const signupForm = document.getElementById("signupForm");
-      loginForm.style.display = loginForm.style.display === "none" ? "block" : "none";
-      signupForm.style.display = signupForm.style.display === "none" ? "block" : "none";
+</div>
+
+<script>
+  const ADMIN_USERNAME = "admin";
+  const ADMIN_PASSWORD = "admin123";
+
+  function toggleForms() {
+    const loginForm = document.getElementById("loginForm");
+    const signupForm = document.getElementById("signupForm");
+    loginForm.style.display = loginForm.style.display === "none" ? "block" : "none";
+    signupForm.style.display = signupForm.style.display === "none" ? "block" : "none";
+  }
+
+  function toggleVisibility(inputId, iconEl) {
+    const input = document.getElementById(inputId);
+    const type = input.type === "password" ? "text" : "password";
+    input.type = type;
+    iconEl.textContent = type === "password" ? "👁️" : "🙈";
+  }
+
+  function getUsers() {
+    return JSON.parse(localStorage.getItem("users") || "{}");
+  }
+
+  function saveUsers(users) {
+    localStorage.setItem("users", JSON.stringify(users));
+  }
+
+  // Signup
+  document.getElementById("signupForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const fullName = document.getElementById("fullName").value.trim();
+    const username = document.getElementById("signupUsername").value.trim();
+    const email = document.getElementById("signupEmail").value.trim();
+    const phone = document.getElementById("signupPhone").value.trim();
+    const address = document.getElementById("signupAddress").value.trim();
+    const password = document.getElementById("signupPassword").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+
+    if (username.toLowerCase() === ADMIN_USERNAME) {
+      alert("Cannot use 'admin' as a username.");
+      return;
     }
 
-    // Login Logic
-    document.getElementById("loginForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const username = document.getElementById("loginUsername").value.trim();
-      const password = document.getElementById("loginPassword").value;
+    if (password !== confirmPassword) {
+      alert("Passwords do not match.");
+      return;
+    }
 
-      if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-        alert("Admin login successful!");
-        sessionStorage.setItem("role", "admin");
-        window.location.href = "admin.html";
-      } else if (users[username] && users[username].password === password) {
-        alert("User login successful!");
+    let users = getUsers();
+    if (users[username]) {
+      alert("Username already exists.");
+      return;
+    }
+
+    users[username] = {
+      fullName,
+      email,
+      phone,
+      address,
+      password
+    };
+
+    saveUsers(users);
+    alert("Signup successful! Please login.");
+    toggleForms();
+  });
+
+  // Login
+  document.getElementById("loginForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const usernameOrEmail = document.getElementById("loginUsername").value.trim();
+    const password = document.getElementById("loginPassword").value;
+
+    if (usernameOrEmail === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+      alert("Admin login successful!");
+      sessionStorage.setItem("role", "admin");
+      window.location.href = "admin.html";
+      return;
+    }
+
+    const users = getUsers();
+    let userFound = false;
+
+    for (let username in users) {
+      const user = users[username];
+      if ((usernameOrEmail === username || usernameOrEmail === user.email) && user.password === password) {
+        userFound = true;
+        alert(`Welcome back, ${user.fullName}!`);
         sessionStorage.setItem("role", "user");
+        sessionStorage.setItem("loggedInUser", username);
         window.location.href = "index.html";
-      } else {
-        alert("Invalid credentials.");
+        break;
       }
-    });
+    }
 
-    // Signup Logic
-    document.getElementById("signupForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const username = document.getElementById("signupUsername").value.trim();
-      const password = document.getElementById("signupPassword").value;
+    if (!userFound) {
+      alert("Invalid credentials.");
+    }
+  });
+</script>
 
-      if (username.toLowerCase() === ADMIN_USERNAME) {
-        alert("Cannot use 'admin' as username.");
-        return;
-      }
-
-      if (users[username]) {
-        alert("Username already exists.");
-      } else {
-        users[username] = { password: password };
-        alert("Signup successful! Please login.");
-        toggleForms();
-      }
-    });
-  </script>
 </body>
 </html>

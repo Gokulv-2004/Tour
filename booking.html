@@ -38,47 +38,60 @@
   </form>
 
 <script>
-  let prices = {
-    packages: {},
-    seasons: {
-      "SPRING": 1000,
-      "SUMMER": 1500,
-      "MONSOON": 1300,
-      "WINTER": 1700,
-      "NULL": ""
-    }
+  const prices = {
+    packages: {}
   };
 
-  // Load places from places.json
   async function loadPlaces() {
-    try {
-      const response = await fetch('places.json');
-      if (!response.ok) throw new Error("Failed to load places.json");
+  const packageSelect = document.getElementById('package');
+  let allPlaces = [];
 
-      const places = await response.json();
-      const packageSelect = document.getElementById('package');
-
-      places.forEach(place => {
-        const option = document.createElement('option');
-        option.value = place.name;
-        option.textContent = `${place.name} - ₹${place.price}`;
-        packageSelect.appendChild(option);
-
-        prices.packages[place.name] = place.price;
-      });
-    } catch (err) {
-      console.error("Error loading places.json:", err);
-      alert("Could not load packages. Please try again later.");
-    }
+  try {
+    const response = await fetch('places.json');
+    const placesFromJson = await response.json();
+    allPlaces = [...placesFromJson];
+  } catch (err) {
+    console.warn("places.json couldn't be loaded.", err);
   }
+
+  const localPlaces = JSON.parse(localStorage.getItem("places") || "[]");
+  allPlaces = [...allPlaces, ...localPlaces];
+
+  const uniqueMap = new Map();
+  allPlaces.forEach(place => {
+    uniqueMap.set(place.name.trim().toLowerCase(), place);
+  });
+  const uniquePlaces = Array.from(uniqueMap.values());
+
+  if (uniquePlaces.length === 0) {
+    alert("No packages available.");
+    return;
+  }
+
+  uniquePlaces.forEach(place => {
+    const option = document.createElement('option');
+    option.value = place.name;
+    option.textContent = `${place.name} - ₹${place.price}`;
+    packageSelect.appendChild(option);
+
+    prices.packages[place.name] = place.price;
+  });
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const selectedPlace = urlParams.get("place");
+  if (selectedPlace) {
+    packageSelect.value = selectedPlace;
+  }
+}
+
 
   document.getElementById('bookingForm').addEventListener('submit', function (e) {
     e.preventDefault();
 
-    const package = document.getElementById('package').value;
+    const packageName = document.getElementById('package').value;
     const members = parseInt(document.getElementById('members').value);
 
-    const total = prices.packages[package] || 0;
+    const total = prices.packages[packageName] || 0;
     const totalCost = total * members;
 
     const booking = {
@@ -89,7 +102,7 @@
       gender: document.querySelector('input[name="gender"]:checked').value,
       date: document.getElementById('date').value,
       from: document.getElementById('from').value,
-      package: package,
+      package: packageName,
       payment: document.getElementById('payment').value,
       totalCost: totalCost
     };
@@ -100,10 +113,10 @@
 
     alert(`Booking Confirmed! Total Price: ₹${totalCost}`);
     document.getElementById('bookingForm').reset();
-    window.location.href = '/'
+    window.location.href = '/';
   });
 
-  loadPlaces(); 
+  loadPlaces();
 </script>
 </body>
 </html>

@@ -108,63 +108,7 @@
     color: #25d366;
   }
 
-  form {
-    max-width: 500px;
-    margin: 0 auto 50px auto;
-    background: ghostwhite;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 0 15px rgba(0, 191, 255, 0.3);
-  }
-
-  form label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 8px;
-    font-size: large;
-    color: #0077b6;
-  }
-
-  form input,
-  form textarea {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 20px;
-    font-size: 16px;
-    border: 1px solid #aaa;
-    border-radius: 8px;
-    background-color: #f8faff;
-    box-sizing: border-box;
-  }
-
-  form button {
-    background-color: #00aaff;
-    border: none;
-    padding: 12px 25px;
-    font-size: large;
-    font-weight: 700;
-    border-radius: 10px;
-    cursor: pointer;
-    color: white;
-    transition: background-color 0.3s ease;
-  }
-
-  form button:hover {
-    background-color: #0077b6;
-  }
-
-  .working-hours {
-    max-width: 600px;
-    margin: 0 auto 30px auto;
-    font-size: large;
-    text-align: center;
-    background: ghostwhite;
-    border-radius: 15px;
-    padding: 20px;
-    font-style: italic;
-    font-weight: 600;
-    box-shadow: 0 0 10px rgba(135, 206, 235, 0.4);
-  }
+ 
 </style>
 
 
@@ -187,19 +131,19 @@
 </ul>
 
 <div class="social-icons">
-  <a href="https://www.facebook.com/packyourbag" target="_blank" class="facebook" aria-label="Facebook">
+  <a href="https://www.facebook.com" target="_blank" class="facebook" aria-label="Facebook">
     <i class="fab fa-facebook-square"></i>
   </a>
-  <a href="https://twitter.com/packyourbag" target="_blank" class="twitter" aria-label="Twitter">
+  <a href="https://twitter.com" target="_blank" class="twitter" aria-label="Twitter">
     <i class="fab fa-twitter-square"></i>
   </a>
-  <a href="https://www.instagram.com/packyourbag" target="_blank" class="instagram" aria-label="Instagram">
+  <a href="https://www.instagram.com" target="_blank" class="instagram" aria-label="Instagram">
     <i class="fab fa-instagram-square"></i>
   </a>
   <a href="https://www.linkedin.com/company/packyourbag" target="_blank" class="linkedin" aria-label="LinkedIn">
     <i class="fab fa-linkedin"></i>
   </a>
-  <a href="https://wa.me/919998889988" target="_blank" class="whatsapp" aria-label="WhatsApp">
+  <a href="https://www.whatsapp.com" target="_blank" class="whatsapp" aria-label="WhatsApp">
     <i class="fab fa-whatsapp-square"></i>
   </a>
 </div>
@@ -208,47 +152,12 @@
 <p>Email: <a href="mailto:admin@packyourbag.com">admin@packyourbag.com</a></p>
 <p>Phone: <a href="tel:+919998899888">+91-9998899888</a></p>
 
-<div class="working-hours">
-  <p><strong>Working Hours:</strong> Mon - Sat, 9:00 AM - 7:00 PM</p>
-</div>
 
-<form id="contactForm">
-  <label for="name">Name:</label>
-  <input type="text" id="name" name="name" placeholder="Your full name" required />
-
-  <label for="email">Email:</label>
-  <input type="email" id="email" name="email" placeholder="Your email address" required />
-
-  <label for="message">Message:</label>
-  <textarea id="message" name="message" rows="5" placeholder="Write your message here" required></textarea>
-
-  <button type="submit">Send Message</button>
-</form>
 
 <footer>
   Pack Your Bag's Services Limited.
 </footer>
-<script>
-document.getElementById("contactForm").addEventListener("submit", function(e) {
-  e.preventDefault(); // Prevent actual form submission
 
-  const name = document.getElementById("name").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const message = document.getElementById("message").value.trim();
-
-  if (!name || !email || !message) {
-    alert("Please fill all fields.");
-    return;
-  }
-
-  const contactMessages = JSON.parse(localStorage.getItem("contactMessages")) || [];
-  contactMessages.push({ name, email, message });
-  localStorage.setItem("contactMessages", JSON.stringify(contactMessages));
-
-  alert("Message sent!");
-  this.reset();
-});
-</script>
 
 </body>
 </html>

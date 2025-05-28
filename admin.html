@@ -98,7 +98,6 @@
     color: #555;
     margin-top: 40px;
   }
-  /* Image thumbnail in places list */
   #placesListTable img {
     width: 80px;
     height: 50px;
@@ -118,7 +117,6 @@
   <button onclick="location.href='index.html'">Go to Homepage</button>
 </div>
 
-<!-- BOOKINGS -->
 <div id="bookingsSection" class="section active">
   <div style="text-align:center; margin-bottom: 10px;">
     <button onclick="downloadCSV()" class="action-btn">Download Bookings CSV</button>
@@ -136,7 +134,6 @@
   </table>
 </div>
 
-<!-- MANAGE PLACES -->
 <div id="placesSection" class="section">
   <h2>Add New Place</h2>
   <input type="text" id="placeName" placeholder="Place Name" />
@@ -174,13 +171,10 @@
         <th>Price (₹)</th>
       </tr>
     </thead>
-    <tbody>
-      <!-- Places list will be rendered here -->
-    </tbody>
+    <tbody></tbody>
   </table>
 </div>
 
-<!-- CONTACT MESSAGES -->
 <div id="contactMessagesSection" class="section">
   <h2>Contact Messages</h2>
   <table>
@@ -189,9 +183,7 @@
         <th>Name</th><th>Email</th><th>Message</th><th>Action</th>
       </tr>
     </thead>
-    <tbody id="contactMessagesTable">
-      <!-- Messages will load here -->
-    </tbody>
+    <tbody id="contactMessagesTable"></tbody>
   </table>
 </div>
 
@@ -200,61 +192,38 @@
 </footer>
 
 <script>
-  // Bookings from localStorage
   let bookings = JSON.parse(localStorage.getItem('bookings')) || [];
-
-  // Places loaded only from places.json, no localStorage usage
   let places = [];
 
-  // Populate dropdown for updating place price
   function populateDropdown() {
     const dropdown = document.getElementById('updatePlaceDropdown');
     dropdown.innerHTML = '<option value="">-- Select a Place --</option>';
-    if (places.length === 0) {
-      const opt = document.createElement("option");
-      opt.value = "";
-      opt.textContent = "No places available";
+    places.forEach(p => {
+      const opt = document.createElement('option');
+      opt.value = p.name;
+      opt.textContent = p.name;
       dropdown.appendChild(opt);
-    } else {
-      places.forEach(p => {
-        const opt = document.createElement('option');
-        opt.value = p.name;
-        opt.textContent = p.name;
-        dropdown.appendChild(opt);
-      });
-    }
+    });
   }
 
-  // Render places in the table
   function renderPlacesList() {
     const tbody = document.querySelector('#placesListTable tbody');
     tbody.innerHTML = "";
-
     if (places.length === 0) {
       tbody.innerHTML = `<tr><td colspan="4">No places available.</td></tr>`;
       return;
     }
-
     places.forEach(place => {
       const tr = document.createElement('tr');
-
-      const tdName = document.createElement('td');
-      tdName.textContent = place.name;
-      tr.appendChild(tdName);
-
-      const tdDesc = document.createElement('td');
-      tdDesc.textContent = place.desc;
-      tr.appendChild(tdDesc);      
-
-      const tdPrice = document.createElement('td');
-      tdPrice.textContent = `₹${place.price}`;
-      tr.appendChild(tdPrice);
-
+      tr.innerHTML = `
+        <td>${place.name}</td>
+        <td>${place.desc}</td>
+        <td>₹${place.price}</td>
+      `;
       tbody.appendChild(tr);
     });
   }
 
-  // Add new place in memory only
   function addNewPlace() {
     const name = document.getElementById('placeName').value.trim();
     const desc = document.getElementById('placeDesc').value.trim();
@@ -272,13 +241,14 @@
     }
 
     places.push({ name, desc, image, price });
+    localStorage.setItem('places', JSON.stringify(places));
+
     alert("Place added successfully.");
     clearPlaceInputs();
     populateDropdown();
     renderPlacesList();
   }
 
-  // Update place price in memory only
   function updatePlacePrice() {
     const selectedPlace = document.getElementById('updatePlaceDropdown').value;
     const newPrice = parseFloat(document.getElementById('newPlacePrice').value.trim());
@@ -299,12 +269,13 @@
     }
 
     place.price = newPrice;
+    localStorage.setItem('places', JSON.stringify(places));
+
     alert("Price updated successfully.");
     document.getElementById('newPlacePrice').value = "";
     renderPlacesList();
   }
 
-  // Remove place from memory only
   function removePlace() {
     const placeName = document.getElementById('deletePlaceName').value.trim();
     if (!placeName) {
@@ -322,13 +293,14 @@
     }
 
     places.splice(index, 1);
+    localStorage.setItem('places', JSON.stringify(places));
+
     alert("Place deleted successfully.");
     document.getElementById('deletePlaceName').value = "";
     populateDropdown();
     renderPlacesList();
   }
 
-  // Clear add place inputs
   function clearPlaceInputs() {
     document.getElementById('placeName').value = "";
     document.getElementById('placeDesc').value = "";
@@ -336,14 +308,12 @@
     document.getElementById('placePrice').value = "";
   }
 
-  // Show section by id, hide others
   function showSection(id) {
     const sections = document.querySelectorAll('.section');
     sections.forEach(section => section.classList.remove('active'));
     document.getElementById(id).classList.add('active');
   }
 
-  // Load bookings table from localStorage
   function loadBookings() {
     const tbody = document.getElementById('bookingTable');
     tbody.innerHTML = "";
@@ -364,7 +334,6 @@
     });
   }
 
-  // Download bookings as CSV
   function downloadCSV() {
     if (bookings.length === 0) {
       alert("No bookings to download.");
@@ -386,7 +355,6 @@
     URL.revokeObjectURL(url);
   }
 
-  // Clear all bookings
   function clearBookings() {
     if (!confirm("Are you sure you want to delete all bookings?")) return;
     bookings = [];
@@ -394,7 +362,6 @@
     loadBookings();
   }
 
-  // CONTACT MESSAGES
   function loadContactMessages() {
     const messages = JSON.parse(localStorage.getItem('contactMessages')) || [];
     const tbody = document.getElementById('contactMessagesTable');
@@ -424,29 +391,37 @@
     }
   }
 
-  // Load places.json only
   async function loadPlaces() {
     try {
       const response = await fetch('places.json');
       if (!response.ok) throw new Error("Failed to load places.json");
-      places = await response.json();
+      const staticPlaces = await response.json();
+      const storedPlaces = JSON.parse(localStorage.getItem('places')) || [];
+
+      const merged = [...storedPlaces];
+      staticPlaces.forEach(sp => {
+        if (!merged.some(mp => mp.name.toLowerCase() === sp.name.toLowerCase())) {
+          merged.push(sp);
+        }
+      });
+
+      places = merged;
+      localStorage.setItem('places', JSON.stringify(places));
 
       populateDropdown();
       renderPlacesList();
     } catch (err) {
       console.error(err);
       alert("Error loading places.json. Cannot load places.");
-      places = [];
+      places = JSON.parse(localStorage.getItem('places')) || [];
       populateDropdown();
       renderPlacesList();
     }
   }
 
-  // Initial load
   loadPlaces();
   loadBookings();
   loadContactMessages();
-
 </script>
 
 </body>

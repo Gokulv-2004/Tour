@@ -16,10 +16,13 @@
         <h1 class="logo-font">Pack Your Bag <i class="fa-solid fa-person-walking-luggage"></i></h1>
       </div>
       <nav>
-        <a href="p1.html"><i class="fa-solid fa-house-chimney"></i> Home</a>
+        <a href="index.html"><i class="fa-solid fa-house-chimney"></i> Home</a>
         <a href="package.html"><i class="fa-brands fa-bluesky"></i> Travel Package</a>
         <a href="contact.html"><i class="fa-solid fa-phone"></i> Contact</a>
-        <a href="booking.html"><i class="fa-solid fa-heart"></i> Book Now</a>
+        <a href="booking.html"><i class="fa-solid fa-plane-departure"></i> Book Now</a>
+        <a href="feedback.html"><i class="fa-regular fa-comment"></i>  Feed Back</a>
+        <a href="about.html"><i class="fa-solid fa-heart"></i> About Us</a>
+        
       </nav>
     </header>
 
@@ -45,40 +48,53 @@
     </footer>
   </div>
 
-  <script>
-    // Display user role from session
-    const role = sessionStorage.getItem("role");
-    document.getElementById("userRole").innerText = role
-      ? `You are logged in as: ${role}`
-      : `You are not logged in.`;
 
-    // Fetch places from places.json
-    fetch('places.json')
-      .then(response => response.json())
-      .then(places => {
-        const container = document.getElementById('placesContainer');
-        if (places.length === 0) {
-          container.innerHTML = "<p style='text-align:center;'>No places available. Please add from the admin panel.</p>";
-        } else {
-          places.forEach(place => {
-            const card = document.createElement("div");
-            card.className = "place-card";
-            card.innerHTML = `
-          <a href="package.html#${place.name.toLowerCase().replace(/\s+/g, '')}">
-            <img src="${place.img}" alt="${place.name}">
-          </a>
-          <h3>${place.name}</h3>
-          
-`;
+<script>
 
-            container.appendChild(card);
-          });
-        }
-      })
-      .catch(error => {
-        console.error("Failed to load places:", error);
-        document.getElementById('placesContainer').innerHTML = "<p style='color:red; text-align:center;'>Failed to load places data.</p>";
-      });
-  </script>
+const role = sessionStorage.getItem("role");
+  document.getElementById("userRole").innerText = role
+    ? `You are logged in as: ${role}`
+    : `You are not logged in.`;
+
+  const container = document.getElementById('placesContainer');
+
+  function displayPlaces(allPlaces) {
+    if (allPlaces.length === 0) {
+      container.innerHTML = "<p style='text-align:center;'>No places available. Please add from the admin panel.</p>";
+      return;
+    }
+
+    allPlaces.forEach(place => {
+      const card = document.createElement("div");
+      card.className = "place-card";
+      card.innerHTML = `
+        <a href="package.html#${place.name.toLowerCase().replace(/\s+/g, '')}">
+          <img src="${place.image || place.img}" alt="${place.name}" />
+        </a>
+        <h3>${place.name}</h3>
+        <p>${place.desc || ''}</p>
+        <p><strong>Price: ₹${place.price || 'N/A'}</strong></p>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  const localPlaces = JSON.parse(localStorage.getItem("places")) || [];
+
+  fetch('places.json')
+    .then(response => response.json())
+    .then(jsonPlaces => {
+      const allPlaces = [...jsonPlaces, ...localPlaces];
+      displayPlaces(allPlaces);
+    })
+    .catch(error => {
+      console.error("Failed to load places.json:", error);
+      displayPlaces(localPlaces);
+    });
+</script>
+
+</body>
+</html>
+
 </body>
 </html>
