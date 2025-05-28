@@ -26,22 +26,11 @@
     <main>
       <section>
         <h2>Famous Places in Karnataka</h2>
-        <div class="gallery">
-          <a href="package.html#one"><img src="/image/image1.jpg" alt="Mysore" /></a>
-          <a href="package.html#two"><img src="/image/image2.jpg" alt="Lalbagh" /></a>
-          <a href="package.html#three"><img src="/image/image3.jpg" alt="Hampi" /></a>
-          <a href="package.html#four"><img src="/image/image4.webp" alt="Gokarna" /></a>
-          <a href="package.html#five"><img src="/image/image5.webp" alt="Murudeshwara" /></a>
-          <a href="package.html#six"><img src="/image/image6.webp" alt="Dandeli" /></a>
-          <a href="package.html#seven"><img src="/image/image7.webp" alt="Shravanabelagola" /></a>
-          <a href="package.html#eight"><img src="/image/image8.webp" alt="Chikmagalur" /></a>
-          <a href="package.html#nine"><img src="/image/image9.webp" alt="ISKCON" /></a>
-          <a href="package.html#ten"><img src="/image/image10.webp" alt="Jog Falls" /></a>
+        <div class="places-container" id="placesContainer">
+          <!-- Places will be dynamically loaded here -->
         </div>
       </section>
-<div class="places-container" id="placesContainer">
-  <!-- Places will be loaded here dynamically -->
-</div>
+
       <section class="season-section">
         <h2>🌸 Spring (March - May)</h2>
         <div class="season-gallery">
@@ -89,31 +78,40 @@
   </div>
 
   <script>
+    // Display user role from session
     const role = sessionStorage.getItem("role");
     document.getElementById("userRole").innerText = role
       ? `You are logged in as: ${role}`
       : `You are not logged in.`;
-      /* */
-  const places = JSON.parse(localStorage.getItem('places')) || [];
-    const container = document.getElementById('placesContainer');
 
-    if (places.length === 0) {
-      container.innerHTML = "<p style='text-align:center;'>No places available. Please add from the admin panel.</p>";
-    } else {
-      places.forEach(place => {
-        const card = document.createElement("div");
-        card.className = "place-card";
-
-        card.innerHTML = `
-          <img src="${place.img}" alt="${place.name}">
+    // Fetch places from places.json
+    fetch('places.json')
+      .then(response => response.json())
+      .then(places => {
+        const container = document.getElementById('placesContainer');
+        if (places.length === 0) {
+          container.innerHTML = "<p style='text-align:center;'>No places available. Please add from the admin panel.</p>";
+        } else {
+          places.forEach(place => {
+            const card = document.createElement("div");
+            card.className = "place-card";
+            card.innerHTML = `
+          <a href="package.html#${place.name.toLowerCase().replace(/\s+/g, '')}">
+            <img src="${place.img}" alt="${place.name}">
+          </a>
           <h3>${place.name}</h3>
           <p>${place.desc}</p>
           <div class="price">₹${place.price}</div>
-        `;
+`;
 
-        container.appendChild(card);
+            container.appendChild(card);
+          });
+        }
+      })
+      .catch(error => {
+        console.error("Failed to load places:", error);
+        document.getElementById('placesContainer').innerHTML = "<p style='color:red; text-align:center;'>Failed to load places data.</p>";
       });
-    }
   </script>
 </body>
 </html>

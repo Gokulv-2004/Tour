@@ -1,307 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="package.css">
-  <link rel="icon" type="image/webp" href="/image/icon.webp" />
-    <script src="https://kit.fontawesome.com/83bd40f7aa.js" crossorigin="anonymous"></script>
-    <script src="package.js"></script>
-    <title>Packages</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Travel Packages</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+
+    .package {
+      width: 100%;
+      background: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      scroll-margin-top: 100px; /* for anchor scroll offset */
+    }
+
+    .package img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .package h3 {
+      margin-top: 15px;
+      font-size: 24px;
+      color: #333;
+    }
+
+    .package p {
+      color: #555;
+    }
+
+    .package span {
+      display: inline-block;
+      margin-top: 10px;
+      font-weight: bold;
+      color: #0066cc;
+    }
+  </style>
 </head>
 <body>
-    <h1>PACKAGES</h1>
-    <form onclick="return handleSearch(event)">
-        <div id="search">
-            <label class="label" for="place">CHOOSE a PLACE</label><br><br>
-            <input id="inputbox" type="text" list="places" placeholder="Enter the place">
-            <datalist id="places">
-                <option value="MYSORE"></option>
-                <option value="LALBAGH"></option>
-                <option value="HAMPI"></option>
-                <option value="GOKARNA"></option>
-                <option value="MURUDESHWARA"></option>
-                <option value="DANDELI"></option>
-                <option value="SHRAVANBELGOLA"></option>
-                <option value="CHIKMAGALURE"></option>
-                <option value="ISKCON"></option>
-                <option value="JOG FALLS"></option>
-                <option value="SEASONAL(SPRING)"></option>
-                <option value="SEASONAL(SUMMER)"></option>
-                <option value="SEASONAL(MONSOON)"></option>
-                <option value="SEASONAL(WINTER)"></option>
-            </datalist><br><br>
-            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-            <button type="reset"><i class="fa-solid fa-arrow-rotate-right"></i></button>
-        </div>
-    </form><br>
 
-    <h2 class="Top">10 Must-Visit Destinations in Karnataka</h2>
-    <div id="kar-box">
+  <h1>Available Travel Packages</h1>
+  <div id="packageList"></div>
 
-        <section id="one">
-            <h3>1. Mysore Palace: The Royal Marvel</h3>
-            <img src="image/image1.jpg" width="200" height="200">
-            <p>Mysore Palace, also known as <strong>Amba Vilas Palace</strong>, is a stunning Indo-Saracenic architectural wonder and the pride of Karnataka.</p>
-            <ul>
-                <li><strong>Grand Durbar Hall</strong> – A lavish royal courtroom.</li>
-                <li><strong>Illumination</strong> – Lit up with <strong>100,000+ bulbs</strong> every <strong>Sunday & during Dasara</strong>.</li>
-                <li><strong>Golden Throne</strong> – A symbol of Wadiyar royalty.</li>
-                <li><strong> Price-₹1,500</strong> </li>
-            </ul>
-            <a href="booking.html"><button>Book now <i class="fa-solid fa-circle-check"></i></button></a>
-        </section>
+  <script>
+    fetch('places.json')
+      .then(response => {
+        if (!response.ok) throw new Error("Failed to load places.");
+        return response.json();
+      })
+      .then(places => {
+        const packageList = document.getElementById("packageList");
 
-        <section id="two">
-            <h3>2. Lalbagh: Bangalore’s Green Escape</h3>
-            <img src="image/image2.jpg" width="200" height="200">
-            <ul>
-                <li><strong>Glass House</strong> – Inspired by London’s Crystal Palace.</li>
-                <li><strong>Floral Clock</strong> – A unique botanical timepiece.</li>
-                <li><strong>Perfect for Nature Walks & Photography</strong></li>
-                <li><strong> Price-₹1,000</strong> </li>
-            </ul>
-            <a href="booking.html"><button>Book now <i class="fa-solid fa-circle-check"></i></button></a>
-        </section>
+        places.forEach(place => {
+          const anchorId = place.name.trim().replace(/\s+/g, '-').toLowerCase();
 
-        <section id="three">
-            <h3>3. Hampi: The Lost City of Vijayanagar</h3>
-            <img src="image/image3.jpg" width="200" height="200">
-            <ul>
-                <li><strong>Virupaksha Temple</strong> – A 7th-century marvel.</li>
-                <li><strong>Stone Chariot</strong> – Karnataka’s pride.</li>
-                <li><strong>Matanga Hill</strong> – Best spot for sunrise views.</li>
-                <li><strong> Price-₹2,200</strong> </li>
-            </ul>
-            <a href="booking.html"><button>Book now <i class="fa-solid fa-circle-check"></i></button></a>
-        </section>
+          const anchor = document.createElement('a');
+          anchor.className = "anchor";
+          anchor.id = anchorId;
 
-        <section id="four">
-            <h3>4. Gokarna: The Beachside Bliss</h3>
-            <img src="image/image4.webp" width="200" height="200">
-            <ul>
-                <li><strong>Om Beach</strong> – Perfect for sunsets & water sports.</li>
-                <li><strong>Paradise Beach</strong> – A secluded, scenic retreat.</li>
-                <li><strong>Mahabaleshwar Temple</strong> – A sacred pilgrimage site.</li>
-                <li><strong> Price-₹2,500</strong> </li>
-            </ul>
-            <a href="booking.html"><button>Book now <i class="fa-solid fa-circle-check"></i></button></a>
-        </section>
+          const packageDiv = document.createElement("div");
+          packageDiv.className = "package";
 
-        <section id="five">
-            <h3>5. Murudeshwara: The Majestic Shiva Temple</h3>
-            <img src="image/image5.webp" width="200" height="200">
-            <ul>
-                <li><strong>20-Story Raja Gopuram</strong> – Offers panoramic views.</li>
-                <li><strong>Beachside Location</strong> – Spiritual vibes meet ocean waves.</li>
-                <li><strong>Ramayana Connection</strong> – Linked to the Atma Linga legend.</li>
-                <li><strong> Price-₹2,300</strong> </li>
-              </ul>
-            <a href="booking.html"><button>Book now <i class="fa-solid fa-circle-check"></i></button></a>
-        </section>
+          packageDiv.innerHTML = `
+            <img src="${place.image}" alt="${place.name}">
+            <h3>${place.name}</h3>
+            <p>${place.description}</p>
+            <span>Price: ₹${place.price}</span>
+          `;
 
-        <section id="six">
-            <h3>6. Dandeli: The Ultimate Adventure Spot</h3>
-            <img src="image/image6.webp" width="200" height="200">
-            <ul>
-                <li><strong>White-water Rafting</strong> – Best in South India!</li>
-                <li><strong>Wildlife Safari</strong> – Spot tigers, leopards & hornbills.</li>
-                <li><strong>Camping & Kayaking</strong> – Ideal for nature lovers.</li>
-                <li><strong> Price-₹2,700</strong> </li>
-            </ul>
-            <a href="booking.html"><button>Book now <i class="fa-solid fa-circle-check"></i></button></a>
-        </section>
+          packageList.appendChild(anchor);
+          packageList.appendChild(packageDiv);
+        });
 
-        <section id="seven">
-            <h3>7. Shravanabelagola: The Sacred Jain Pilgrimage</h3>
-            <img src="image/image7.webp" width="200" height="200">
-            <ul>
-                <li><strong>Bahubali Statue</strong> – Carved from a single rock in <strong>981 AD</strong>.</li>
-                <li><strong>600+ Steps to the Top</strong> – A scenic spiritual trek.</li>
-                <li><strong>Mahamastakabhisheka</strong> – Held every <strong>12 years</strong>.</li>
-                <li><strong> Price-₹2,500</strong> </li>
-            </ul>
-            <a href="booking.html"><button>Book now <i class="fa-solid fa-circle-check"></i></button></a>
-        </section>
-
-        <section id="eight">
-            <h3>8. Chikmagalur: The Coffee Paradise</h3>
-            <img src="image/image8.webp" width="200" height="200">
-            <ul>
-                <li><strong>Coffee Estates</strong> – Perfect for fresh brews and scenic stays.</li>
-                <li><strong>Mullayanagiri Peak</strong> – Karnataka’s highest peak (6,330 ft).</li>
-                <li><strong>Hebbe & Jhari Falls</strong> – Hidden forest waterfalls.</li>
-                <li><strong> Price-₹2,400</strong> </li>
-            </ul>
-            <a href="booking.html"><button>Book now <i class="fa-solid fa-circle-check"></i></button></a>
-        </section>
-
-        <section id="nine">
-            <h3>9. ISKCON Temple Bangalore: A Spiritual Landmark</h3>
-            <img src="image/image9.webp" width="200" height="200">
-            <ul>
-                <li><strong>Grand Architecture</strong> – Gold-plated altars & intricate designs.</li>
-                <li><strong>Bhajans & Kirtans</strong> – A divine musical experience.</li>
-                <li><strong>Tasty Prasadam</strong> – Don’t miss the <strong>Khichdi & sweets</strong>!</li>
-                <li><strong> Price-₹1,600</strong> </li>
-
-            </ul>
-            <a href="booking.html"><button>Book now <i class="fa-solid fa-circle-check"></i></button></a>
-        </section>
-
-        <section id="ten">
-            <h3>10. Jog Falls: Karnataka’s Roaring Beauty</h3>
-            <img src="image/image10.webp" width="200" height="200">
-            <ul>
-                <li><strong>Trek to the Base</strong> – Feel the mighty falls up close.</li>
-                <li><strong>Best Viewpoints</strong> – Watkins, Raja, Rani & Rocket Falls.</li>
-                <li><strong>Best Time to Visit</strong> – July–September for peak flow.</li>
-                <li><strong> Price-₹2,100</strong> </li>
-
-            </ul>
-            <a href="booking.html"><button>Book now <i class="fa-solid fa-circle-check"></i></button></a>
-        </section>
-
-    </div>
-
-    
-    <section class="end">
-  <p><strong><em>Karnataka is a treasure trove of history, adventure, spirituality, and nature. Whether you’re a traveler, a nature lover, or a history buff, there’s something for everyone.</em></strong></p>
-        <p><strong><em>🌍 Which of these places have you visited? Share your experiences! ✨🚀</em></strong></p>
-</section>
-
-<!-- SEASONAL PACKAGE -->
-<h1 class="Top">SEASONAL PACKAGE</h1>
-
-<!-- SPRING -->
-<section id="spring">
-  <h2 class="s-heading">🌸 Spring (March - May)</h2>
-  <h3 style="text-align: center;">Weather: Pleasant in most parts before the summer heat sets in.</h3>
-  <div class="season-container">
-    <article>
-      <img src="/image/tulipflower.avif" alt="Kashmir" height="250">
-      <h3>Kashmir (Jammu & Kashmir)</h3>
-      <p>Witness the vibrant blooms at the Indira Gandhi Memorial Tulip Garden, set against snow-capped mountains.</p>
-    </article>
-    <article>
-      <img src="image/west bengal.webp" alt="Darjeeling" height="250">
-      <h3>Darjeeling (West Bengal)</h3>
-      <p>Enjoy panoramic views of Kanchenjunga and stroll through lush tea estates.</p>
-    </article>
-    <article>
-      <img src="image/oote.jpg" alt="OOTY" height="250">
-      <h3>OOTY (Tamil Nadu)</h3>
-      <p>Attend the annual flower show showcasing a variety of blooms and intricate floral arrangements.</p>
-    </article>
-    <article>
-      <img src="image/Coorg.jpg" alt="Coorg" height="250">
-      <h3>Coorg Coffee Blossoms (Karnataka)</h3>
-      <p>Experience the fragrant coffee blossoms in full bloom across sprawling plantations.</p>
-    </article>
-  </div>
-  <hr>
-  <br><br><li><strong> Price-₹15,000</strong> </li>
-  
-
-  <a href="booking.html"><button>Book now <i class="fa-solid fa-circle-check"></i></button></a>
-</section>
-
-<!-- SUMMER -->
-<section id="summer">
-  <h2 class="s-heading">☀️ Summer (June - August)</h2>
-  <h3 style="text-align: center;">Weather: Hot in many regions, but hill stations and northern areas offer a cool retreat.</h3>
-  <div class="season-container">
-    <article>
-      <img src="image/ladakh.avif" alt="Leh Ladakh" height="250">
-      <h3>Leh-Ladakh (Ladakh)</h3>
-      <p>Explore dramatic landscapes, serene monasteries, and embark on adventurous treks.</p>
-    </article>
-    <article>
-      <img src="image/MANALI.jpg" alt="Manali" height="250">
-      <h3>Manali Hill Station</h3>
-      <p>A picturesque hill station offering lush greenery and a gateway to adventure sports.</p>
-    </article>
-    <article>
-      <img src="image/munnar.webp" alt="Munnar" height="250">
-      <h3>Munnar Tea Plantations</h3>
-      <p>Wander through vast tea plantations set amidst rolling hills and enjoy the cool climate.</p>
-    </article>
-    <article>
-      <img src="image/tawang.jpg" alt="Tawang" height="250">
-      <h3>Tawang (Arunachal Pradesh)</h3>
-      <p>Visit the majestic Tawang Monastery, one of the largest in India, surrounded by scenic beauty.</p>
-    </article>
-  </div>
-  <hr>
-  <br><br><li><strong> Price-₹15,000</strong> </li>
-  <a href="booking.html"><button>Book now <i class="fa-solid fa-circle-check"></i></button></a>
-</section>
-
-<!-- MONSOON -->
-<section id="monsoon">
-  <h2 class="s-heading">🌧️ Monsoon (July - September)</h2>
-  <h3 style="text-align: center;">Weather: Rainy, leading to lush landscapes; ideal for nature enthusiasts.</h3>
-  <div class="season-container">
-    <article>
-      <img src="image/udaipur.jpg" alt="Udaipur" height="250">
-      <h3>Udaipur Monsoon</h3>
-      <p>The lakes brim with water, and the city exudes a romantic charm during the rains.</p>
-    </article>
-    <article>
-      <img src="image/goa.avif" alt="Goa" height="250">
-      <h3>Goa Monsoon</h3>
-      <p>Experience the serene beaches with fewer tourists and vibrant greenery inland.</p>
-    </article>
-    <article>
-      <img src="image/meghalaya.jpg" alt="Cherrapunji" height="250">
-      <h3>Cherrapunji Waterfalls (Meghalaya)</h3>
-      <p>Witness some of the world's tallest waterfalls in their full glory amidst misty landscapes.</p>
-    </article>
-    <article>
-      <img src="image/Wayanad.avif" alt="Wayanad" height="250">
-      <h3>Wayanad Waterfalls (Kerala)</h3>
-      <p>Explore dense forests, cascading waterfalls, and enjoy the fresh, rain-washed environment.</p>
-    </article>
-  </div>
-  <hr>
-  <br><br><li><strong> Price-₹15,000</strong> </li>
-  <a href="booking.html"><button>Book now <i class="fa-solid fa-circle-check"></i></button></a>
-</section>
-
-<!-- WINTER -->
-<section id="winter">
-  <h2 class="s-heading">❄️ Winter (October - February)</h2>
-  <h3 style="text-align: center;">Weather: Cool and comfortable, perfect for sightseeing across most regions.</h3>
-  <div class="season-container">
-    <article>
-      <img src="image/jaipur.jpg" alt="Jaipur" height="250">
-      <h3>Jaipur City Palace (Rajasthan)</h3>
-      <p>Discover the rich history and architecture of the Pink City, including the City Palace and Amber Fort.</p>
-    </article>
-    <article>
-      <img src="image/varanasi.jpg" alt="Varanasi" height="250">
-      <h3>Varanasi Ghats (Uttar Pradesh)</h3>
-      <p>Experience spiritual ceremonies along the ghats of the Ganges River.</p>
-    </article>
-    <article>
-      <img src="image/rann.jpg" alt="Rann of Kutch" height="250">
-      <h3>Rann of Kutch Festival (Gujarat)</h3>
-      <p>Attend the Rann Utsav, celebrating culture amidst the vast white salt desert.</p>
-    </article>
-    <article>
-      <img src="image/andaman-nicobar-beach.jpg" alt="Andaman" height="250">
-      <h3>Andaman Nicobar Beach</h3>
-      <p>Relax on pristine beaches and explore vibrant coral reefs.</p>
-    </article>
-  </div>
-  <hr>
-  <br><br><li><strong> Price-₹15,000</strong> </li>
-  <a href="booking.html"><button>Book now <i class="fa-solid fa-circle-check"></i></button></a>
-</section>
-
-<footer>
-  &copy; Pack Your Bag's Services Limited.
-</footer>
+        // Scroll to anchor after render
+        const hash = window.location.hash.substring(1); // e.g., "murudeshwara"
+        if (hash) {
+          setTimeout(() => {
+            const target = document.getElementById(hash);
+            if (target) {
+              target.scrollIntoView({ behavior: "smooth" });
+            }
+          }, 100);
+        }
+      })
+      .catch(error => {
+        console.error("Error:", error);
+        document.getElementById("packageList").innerHTML = "<p>Error loading packages.</p>";
+      });
+  </script>
 
 </body>
 </html>
