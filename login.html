@@ -1,71 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image.webp" href="/image/icon.webp" >
-    <script src="https://kit.fontawesome.com/83bd40f7aa.js" crossorigin="anonymous"></script>
-    <title>Document</title>
-    <style>
-    .video{
-        display:flex;
-        justify-content: center;
-        width: 100%;
-        height: 100vh;
-        overflow: hidden;
-        align-items: center;
-}
-.video video{
-    position: absolute;
-    top: 0;
-    left: 0;
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-}
-.video .form {
-    position: relative;
-    z-index: 1;
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/webp" href="/image/icon.webp" />
+
+  <title>Pack Your Bag | Auth</title>
+ <style>
+  @font-face {
+    font-family: font3;
+    src: url(fonts/Merienda-VariableFont_wght.ttf);
+  }
+
+  body {
+    font-family: font3, Arial, sans-serif;
+    background: linear-gradient(to left, skyblue, #a0e9ff);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     text-align: center;
-    justify-content: center;
-}
+    padding: 50px;
+    margin: 0;
+    color: #222;
+  }
 
+  h1 {
+    color: #0077b6;
+    font-weight: 800;
+    font-size: 2.2em;
+    margin-bottom: 25px;
+  }
 
-        .form{
-            border: 3px solid rgb(136, 186, 205);
-            height: 500px;
-            width: 500px;
-            box-shadow: 0 0 4em 0.5em  rgb(131, 198, 219);
-            border-radius: 30px;
-            text-align: center;
-            padding: 30px;
-            margin: auto;
-        }
-    </style>
+  .form-container {
+    background: ghostwhite;
+    padding: 30px;
+    margin: 0 auto;
+    max-width: 400px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 191, 255, 0.3);
+  }
+
+  input, button {
+    width: 90%;
+    padding: 14px;
+    margin: 12px 0;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+
+  input {
+    background-color: #f1fbff;
+    color: #333;
+  }
+
+  button {
+    background-color: #00aaff;
+    color: white;
+    font-weight: 700;
+    border: none;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #0077b6;
+  }
+
+  .toggle-link {
+    color: #0077b6;
+    cursor: pointer;
+    text-decoration: underline;
+    font-weight: 600;
+    font-size: 0.95em;
+  }
+
+  footer {
+    margin-top: 20%;
+    color: #1e355d;
+    font-weight: 900;
+    text-align: center;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    background-color: #b3e5fc;
+    padding: 10px;
+    border-top: 1px solid #87ceeb;
+  }
+</style>
+
 </head>
-<body>  
-    <div class="video">
-        <video loop muted autoplay>
-            <source src="bg_video.mp4">
+<body>
+  <h1>Pack Your Bag</h1>
+  <div class="form-container">
+    <!-- Login Form -->
+    <form id="loginForm">
+      <h2>Login</h2>
+      <input type="text" id="loginUsername" placeholder="Username" required><br>
+      <input type="password" id="loginPassword" placeholder="Password" required><br>
+      <button type="submit">Login</button>
+      <p>Don't have an account? <span class="toggle-link" onclick="toggleForms()">Sign up here</span></p>
+    </form>
 
-        </video>
-        
-        <div class="form" >
-            <h1>Pack Your Bag's <i class="fa-solid fa-person-walking-luggage"></i></h1>
-             <form > 
-            NAME : <input type="text"  placeholder="Enter your name  "><br><br>
-            EMAIL : <input type="email" placeholder="name@email.com"><BR> <BR>
-            PAASSWORD :<input type="password" placeholder="enter your password"><br><br>
-            <button>Login</button> <button>sign up</button>
-         
-         </form>
-        </div>
-    </div>
+    <!-- Signup Form -->
+    <form id="signupForm" style="display:none;">
+      <h2>Sign Up</h2>
+      <input type="text" id="signupUsername" placeholder="Username" required><br>
+      <input type="password" id="signupPassword" minlength="8" placeholder="Password" required><br>
+      <button type="submit">Sign Up</button>
+      <p>Already have an account? <span class="toggle-link" onclick="toggleForms()">Login here</span></p>
+    </form>
+  </div>
 
+  <footer>&copy; 2025 Pack Your Bag</footer>
 
+  <script>
+    // Fixed admin
+    const ADMIN_USERNAME = "admin";
+    const ADMIN_PASSWORD = "admin123";
 
+    // Other users stored here (in memory only)
+    let users = {};
 
-   
+    function toggleForms() {
+      const loginForm = document.getElementById("loginForm");
+      const signupForm = document.getElementById("signupForm");
+      loginForm.style.display = loginForm.style.display === "none" ? "block" : "none";
+      signupForm.style.display = signupForm.style.display === "none" ? "block" : "none";
+    }
+
+    // Login Logic
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const username = document.getElementById("loginUsername").value.trim();
+      const password = document.getElementById("loginPassword").value;
+
+      if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+        alert("Admin login successful!");
+        sessionStorage.setItem("role", "admin");
+        window.location.href = "admin.html";
+      } else if (users[username] && users[username].password === password) {
+        alert("User login successful!");
+        sessionStorage.setItem("role", "user");
+        window.location.href = "p1.html";
+      } else {
+        alert("Invalid credentials.");
+      }
+    });
+
+    // Signup Logic
+    document.getElementById("signupForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const username = document.getElementById("signupUsername").value.trim();
+      const password = document.getElementById("signupPassword").value;
+
+      if (username.toLowerCase() === ADMIN_USERNAME) {
+        alert("Cannot use 'admin' as username.");
+        return;
+      }
+
+      if (users[username]) {
+        alert("Username already exists.");
+      } else {
+        users[username] = { password: password };
+        alert("Signup successful! Please login.");
+        toggleForms();
+      }
+    });
+  </script>
 </body>
 </html>

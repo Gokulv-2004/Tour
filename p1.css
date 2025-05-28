@@ -1,148 +1,157 @@
-*{
-    margin:0%;
-    padding:0%
+/* style.css */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to bottom, #cfefff, #a0d8ef);
+  color: #00334e;
 }
 
-
-body{
-    background:linear-gradient( to left, skyblue ,rgb(216, 165, 165));
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-  
-}
-.bgv{
-    position: absolute;
-    right: 0%;
-    bottom: 0%;
-    z-index: -1;
-}
-.logoimage{
-    margin-left: 45%;
-    border-style:solid;
-    border-color: black; 
-    border-radius: 100px;
-    padding:0;
-
-}   
-.logo-font{ 
-    text-align: center;
-    font-style:italic;
-    border:  2px solid lightseagreen;
-    box-shadow: 25px;
-    font-weight:400px;
-    text-decoration: dotted;
-    margin-bottom: 5px
+.main {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
 }
 
-nav{
-    margin-top: 10px;
-    padding: 20px;
-    border-style:solid;
-    box-shadow: 25px;
-    border-radius: 40px;
-    display: flex;
-    justify-content:space-evenly;
-    
-    
-}nav a{
-    padding: 14px, 20px;
-    text-align: center;
-}
-nav a:hover{
-    background-color:rgb(215, 229, 242);
-    size: 20%;
-    border-radius: 20px;
-    
+header {
+  background: #0077b6;
+  color: white;
+  padding: 20px;
+  border-radius: 10px 10px 0 0;
 }
 
-#h2{
-    margin-top: 20px;
-    margin-bottom: 20px;
-    text-align: center;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-.photos{
-    margin: 100px 0 0 200px;
-    width:75%;
-    height: 450px;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-margin-bottom: 20%;
-}
-.photos img{
-    width: 10%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 10px;
-    border:2px solid skyblue;
-    transition: all ease-in-out 0.10s;
-}
-.photos img:hover{
-    width:35%;
-}
-footer{
-    margin-top: 20%;
-    padding: 20px;
-    background-color: #81b6d5;
-    font-weight: 900;
-    text-align: center;
-    padding: 15px;
-    position: fixed;
-    bottom: 0px;
-    width: 100%;
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
-.spring1 img{
- width: 400px;
- height: 400px;
- margin: 20px;
- border-radius: 30px;
- border: 3px solid skyblue;
- box-shadow: 0 0 30px 0.8em black;
-} 
-#la:hover{
-    background-color: red;
-    border-radius: 50px;
-    
-    
-}
-.summer img{
-    width: 400px;
- height: 400px;
- margin: 20px;
- border-radius: 30px;
- border: 3px solid skyblue;
- box-shadow: 0 0 30px 0.8em black;
-
-}
-.monsoon img{
-    width: 400px;
- height: 400px;
- margin: 20px;
- border-radius: 30px;
- border: 3px solid skyblue;
- box-shadow: 0 0 30px 0.8em black;
-
-}
-.winter img{
-    width: 400px;
- height: 400px;
- margin: 20px;
- border-radius: 30px;
- border: 3px solid skyblue;
- box-shadow: 0 0 30px 0.8em black;
-
-}
-#season{
-    display: grid;
-    grid-template-columns: repeat(4 , 1fr);
-    justify-content: center;
-    text-align: center;
-    margin: 30px;
-}
-.h1pack{
-    text-align: center;
-    text-decoration: underline;
+.logo {
+  height: 100px;
 }
 
+.logo-font {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+nav {
+  display: flex;
+  justify-content: space-around;
+  background-color: #00b4d8;
+  padding: 10px 0;
+  border-radius: 0 0 10px 10px;
+}
+
+nav a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+nav a:hover {
+  color: #03045e;
+}
+
+section {
+  margin-top: 40px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.gallery, .season-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+  margin-bottom: 30px;
+  padding: 0 10px;
+}
+
+.gallery img, .season-gallery img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.gallery img:hover, .season-gallery img:hover {
+  transform: scale(1.05);
+}
+
+.user-role {
+  text-align: center;
+  font-size: 1.1rem;
+  margin: 20px 0;
+}
+
+.logout {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.logout a {
+  background-color: #0077b6;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.logout a:hover {
+  background-color: #023e8a;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #caf0f8;
+  margin-top: 30px;
+  border-top: 2px solid #0077b6;
+  font-weight: bold;
+}
+.places-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .place-card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      width: 300px;
+      padding: 15px;
+      transition: transform 0.3s;
+    }
+
+    .place-card:hover {
+      transform: scale(1.03);
+    }
+
+    .place-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .place-card h3 {
+      margin-top: 10px;
+      font-size: 1.3em;
+    }
+
+    .place-card p {
+      font-size: 0.95em;
+      color: #555;
+    }
+
+    .place-card .price {
+      font-weight: bold;
+      color: green;
+      margin-top: 8px;
+    }

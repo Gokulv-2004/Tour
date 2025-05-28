@@ -1,74 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="booking.css">
-    <script src="https://kit.fontawesome.com/83bd40f7aa.js" crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <title>Pack Your Bag - Booking</title>
+  <link rel="stylesheet" href="booking.css"> 
+  <link rel="icon" type="image/webp" href="/image/icon.webp" />
 </head>
 <body>
-    <H1> PACK YOUR BAG'S <i class="fa-solid fa-person-walking-luggage"></i></H1>
-    <h4> Booking page</h4>
-    <div class="form">
-        <form>
-            <label> FULL NAME :</label>
-            <input type="text" placeholder="Full Name " required> <br> <br>
-            <label> Phone Number :</label>
-            <input type="tel" placeholder="Telephone Number" required maxlength="10"> <br><br>
-            <label> Email :</label>
-            <input type="email" placeholder="Name@gmail.com" required><br><br>
-        <label>Total Members:</label>
-        <input type="number" placeholder="Number Of People" required min="0" max="40" value="1"><BR><br>
-            <div class="gen">
-                <label for="gen"> Gender:</label><br><BR>
-                <label>MALE</label>
-                <input type="radio" name="gen" value=" MALE "> 
-            <label>FEMALE:</label>
-            <input type="radio" name="gen" value=" FEMALE ">
-            </div><br><br>
-        <label>Tour Date:</label><input type="date" required><br><br> 
-            <div class=" Package">   
-            <div class="from_dis">
-                <label> choose destination </label><BR><br> 
-                FROM:<input type="text" placeholder="From">
-            </div><br><br>
-            <div class="to_dis">
-                TO<input type="text" placeholder="TO">
-            </div><br><br>
-            <label><b>Travel Package:</b></label><BR><br>
-            <label for="kar">Karnataka’s Package</label>
-            <select >
-                <option value="MYSORE">MYSORE</option>
-                <option value="LALBAGH-Bangalore"> LALBAGH-Bangalore</option>
-                <option value="HAMPI">HAMPI</option>
-                <option value="GOKARNA">GOKARNA</option>
-                <option value="MURUDESHWARA">MURUDESHWARA</option>
-                <option value="DANDELI">DANDELI</option>
-                <option value="SHRAVANBELGOLA">SHRAVANBELGOLA</option>
-                <option value="CHIKMAGALURE">CHIKMAGALURE</option>
-                <option value="ISKCON">ISKCON</option>
-                <option value="JOG FALLS">JOG FALLS</option>
-            </select> <br><br>
-            <label >SEASONAL PACKAGE</label>
-            <select>
-                <option value="spring">SPRING</option>
-                <option value="summer">SUMMER</option>
-                <option value="monsoon"> MONSOON</option>
-                <option value="winter">WINTER</option>
-            </select>
+  <h1>Pack Your Bag - Booking Page</h1>
+  <form id="bookingForm">
+    <label>Full Name: <input type="text" id="name" required></label><br><br>
+    <label>Phone Number: <input type="tel" id="phone" required maxlength="10"></label><br><br>
+    <label>Email: <input type="email" id="email" required></label><br><br>
+    <label>Total Members: <input type="number" id="members" min="1" max="40" value="1" required></label><br><br>
+    <label>Gender:
+      <input type="radio" name="gender" value="Male" required> Male
+      <input type="radio" name="gender" value="Female"> Female
+    </label><br><br>
+    <label>Tour Date: <input type="date" id="date" required></label><br><br>
+    <label>From: <input type="text" id="from" required></label><br><br>
+   <label>INNER KARNATAKA'S Package:
+  <select id="package">
+    <option value="MYSORE">MYSORE - ₹1,500</option>
+    <option value="LALBAGH-Bangalore">LALBAGH - ₹1,000</option>
+    <option value="HAMPI">HAMPI - ₹2,200</option>
+    <option value="GOKARNA">GOKARNA - ₹2,500</option>
+    <option value="MURUDESHWARA">MURUDESHWARA - ₹2300</option>
+    <option value="DANDELI">DANDELI - ₹2700</option>
+    <option value="SHRAVANBELGOLA">SHRAVANBELGOLA - ₹1800</option>
+    <option value="CHIKMAGALURE">CHIKMAGALURE - ₹2400</option>
+    <option value="ISKCON">ISKCON - ₹1600</option>
+    <option value="JOG FALLS">JOG FALLS - ₹2100</option>
+    <option value="NULL">--NULL--</option>
+  </select>
+</label><br><br>
+   <label>Seasonal Package:
+  <select id="season">
+    <option value="SPRING">SPRING - ₹15,000</option>
+    <option value="SUMMER">SUMMER - ₹15,000</option>
+    <option value="MONSOON">MONSOON - ₹15,000</option>
+    <option value="WINTER">WINTER - ₹15,000</option>
+    <option value="NULL">--NULL--</option>
+  </select>
+</label><br><br>
+    <label>Payment Method:
+      <select id="payment">
+        <option value="UPI">UPI</option>
+        <option value="Credit Card">Credit Card</option>
+        <option value="Debit Card">Debit Card</option>
+      </select>
+    </label><br><br>
 
-            </div> <BR><br>
-          <label>PAYMENT :</label>
-          <select>
-              <option value="UPI"> UPI</option>
-              <option value="creadit card">  CREADIT CARD</option>
-              <option value="DEBIT card "> DEBIT CARD </option>
-          </select>
-        </form>
+    <button type="submit">Book Now</button>
+  </form>
 
-    </div><br><br>
-    <input type="submit" value="Book now" >
-    <input type="reset" >
+ <script>
+  const prices = {
+    packages: {
+      "MYSORE": 2000,
+      "LALBAGH-Bangalore": 1500,
+      "HAMPI": 2500,
+      "GOKARNA": 2200,
+      "MURUDESHWARA": 2300,
+      "DANDELI": 2700,
+      "SHRAVANBELGOLA": 1800,
+      "CHIKMAGALURE": 2400,
+      "ISKCON": 1600,
+      "JOG FALLS": 2100,
+      "NULL":""
+    },
+    seasons: {
+      "SPRING": 1000,
+      "SUMMER": 1500,
+      "MONSOON": 1300,
+      "WINTER": 1700,
+      "NULL":""
+    }
+  };
+  const packageSelect = document.getElementById('package');
+  const seasonSelect = document.getElementById('season');
+
+  packageSelect.addEventListener('change', () => {
+    if (packageSelect.value !== "") {
+      seasonSelect.value = ""; // Deselect season if tour is selected
+    }
+  });
+
+  seasonSelect.addEventListener('change', () => {
+    if (seasonSelect.value !== "") {
+      packageSelect.value = ""; // Deselect tour if season is selected
+    }
+  });
+
+  document.getElementById('bookingForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const package = document.getElementById('package').value;
+    const season = document.getElementById('season').value;
+    const members = parseInt(document.getElementById('members').value);
+
+    const total = (prices.packages[package] || 0) + (prices.seasons[season] || 0);
+    const totalCost = total * members;
+
+    const booking = {
+      name: document.getElementById('name').value,
+      phone: document.getElementById('phone').value,
+      email: document.getElementById('email').value,
+      members: members,
+      gender: document.querySelector('input[name="gender"]:checked').value,
+      date: document.getElementById('date').value,
+      from: document.getElementById('from').value,
+      package: package,
+      season: season,
+      payment: document.getElementById('payment').value,
+      totalCost: totalCost
+    };
+
+    let allBookings = JSON.parse(localStorage.getItem('bookings')) || [];
+    allBookings.push(booking);
+    localStorage.setItem('bookings', JSON.stringify(allBookings));
+
+    alert(`Booking Confirmed! Total Price: ₹${totalCost}`);
+    document.getElementById('bookingForm').reset();
+  });
+</script>
+
 </body>
 </html>

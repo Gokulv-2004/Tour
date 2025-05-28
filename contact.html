@@ -1,72 +1,254 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        body{
-    background:linear-gradient( to left, skyblue ,rgb(216, 165, 165));
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pack Your Bag - Contact Page</title>
+  <link rel="icon" type="image/webp" href="/image/icon.webp" />
+<style>
+  body {
+    background: linear-gradient(to left, skyblue, #a0e9ff);
     background-repeat: no-repeat;
     background-attachment: fixed;
-    
-}
-h2{ color: aqua;
-    text-align: center;
     font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding-bottom: 70px;
+    color: #222;
+  }
+
+  h2 {
+    color: #0077b6;
+    text-align: center;
     font-style: italic;
     font-size: x-large;
     font-weight: 700;
-}
-h4{
-    text-align: center;
-    text-decoration:underline;
-    font-size: xx-large;
-    font: weight 900px;
+    margin-top: 40px;
+  }
 
-}
-ul{
-    margin: 45px;
+  h4 {
+    text-align: center;
+    text-decoration: underline;
+    font-size: xx-large;
+    font-weight: 900;
+    margin-bottom: 20px;
+    color: #0077b6;
+  }
+
+  ul {
+    margin: 45px auto;
+    max-width: 500px;
     font-style: italic;
     font-size: x-large;
     font-weight: 600;
-    border: solid;
-    border-radius: 35px;
-    padding: 40px 40px;
-}
-footer{
-    background-color: #81b6d5;
+    border: 2px solid #87ceeb;
+    border-radius: 25px;
+    padding: 30px 40px;
+    list-style-type: none;
+    background-color: ghostwhite;
+    box-shadow: 0 0 15px rgba(135, 206, 235, 0.4);
+  }
+
+  ul li {
+    margin-bottom: 15px;
+  }
+
+  footer {
+    background-color: #3aaed8;
     font-weight: 900;
     text-align: center;
-    padding: 5px;
+    padding: 10px 0;
     position: fixed;
     bottom: 0px;
     width: 100%;
-}
-p{
-    font-size: x-large;
-    text-align:center;
-    
-}
+    color: white;
+    border-top: 1px solid #d9f3ff;
+  }
 
-    </style>
+  p {
+    font-size: x-large;
+    text-align: center;
+    margin: 10px 0;
+  }
+
+  .social-icons {
+    text-align: center;
+    margin: 20px 0 40px 0;
+  }
+
+  .social-icons a {
+    text-decoration: none;
+    margin: 0 15px;
+    display: inline-block;
+    color: #555;
+    transition: color 0.3s ease;
+    font-size: 30px;
+  }
+
+  .social-icons a:hover {
+    color: #0077b6;
+  }
+
+  .facebook:hover {
+    color: #3b5998;
+  }
+
+  .twitter:hover {
+    color: #1da1f2;
+  }
+
+  .instagram:hover {
+    color: #c13584;
+  }
+
+  .linkedin:hover {
+    color: #0077b5;
+  }
+
+  .whatsapp:hover {
+    color: #25d366;
+  }
+
+  form {
+    max-width: 500px;
+    margin: 0 auto 50px auto;
+    background: ghostwhite;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 191, 255, 0.3);
+  }
+
+  form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: large;
+    color: #0077b6;
+  }
+
+  form input,
+  form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    border: 1px solid #aaa;
+    border-radius: 8px;
+    background-color: #f8faff;
+    box-sizing: border-box;
+  }
+
+  form button {
+    background-color: #00aaff;
+    border: none;
+    padding: 12px 25px;
+    font-size: large;
+    font-weight: 700;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+
+  form button:hover {
+    background-color: #0077b6;
+  }
+
+  .working-hours {
+    max-width: 600px;
+    margin: 0 auto 30px auto;
+    font-size: large;
+    text-align: center;
+    background: ghostwhite;
+    border-radius: 15px;
+    padding: 20px;
+    font-style: italic;
+    font-weight: 600;
+    box-shadow: 0 0 10px rgba(135, 206, 235, 0.4);
+  }
+</style>
+
+
+<!-- Include FontAwesome for social media icons -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+/>
 </head>
 <body>
-    <h2>PACK YOUR BAG'S </h2>
-    <h4> Contact Page</h4>
 
-    <i> <ul>
-        <li>
-            Email : packyourbag@gmail.com<br></li>
-            <li> Ph no :  9998889988</li>
-            <li>Address : #201 HTML street , around CSS corner , opp. of script shop  .</li>
-            <li> Branches  :  Jaynagar , Banashankari , Slik Board</li>
+<h2>PACK YOUR BAG'S</h2>
+<h4>Contact Page</h4>
 
-            
-        </ul> 
-    </i>
-    <footer >
-        pack your bag's services limited.  
-    </footer>
+<ul>
+  <li>Email: <a href="mailto:packyourbag@gmail.com">packyourbag@gmail.com</a></li>
+  <li>Phone: <a href="tel:+919998889988">9998889988</a></li>
+  <li>Address: #201 HTML Street, Around CSS Corner, Opp. of Script Shop</li>
+  <li>Branches: Jaynagar, Banashankari, Silk Board</li>
+</ul>
+
+<div class="social-icons">
+  <a href="https://www.facebook.com/packyourbag" target="_blank" class="facebook" aria-label="Facebook">
+    <i class="fab fa-facebook-square"></i>
+  </a>
+  <a href="https://twitter.com/packyourbag" target="_blank" class="twitter" aria-label="Twitter">
+    <i class="fab fa-twitter-square"></i>
+  </a>
+  <a href="https://www.instagram.com/packyourbag" target="_blank" class="instagram" aria-label="Instagram">
+    <i class="fab fa-instagram-square"></i>
+  </a>
+  <a href="https://www.linkedin.com/company/packyourbag" target="_blank" class="linkedin" aria-label="LinkedIn">
+    <i class="fab fa-linkedin"></i>
+  </a>
+  <a href="https://wa.me/919998889988" target="_blank" class="whatsapp" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp-square"></i>
+  </a>
+</div>
+
+<h2>Contact Admin</h2>
+<p>Email: <a href="mailto:admin@packyourbag.com">admin@packyourbag.com</a></p>
+<p>Phone: <a href="tel:+919998899888">+91-9998899888</a></p>
+
+<div class="working-hours">
+  <p><strong>Working Hours:</strong> Mon - Sat, 9:00 AM - 7:00 PM</p>
+</div>
+
+<form id="contactForm">
+  <label for="name">Name:</label>
+  <input type="text" id="name" name="name" placeholder="Your full name" required />
+
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="email" placeholder="Your email address" required />
+
+  <label for="message">Message:</label>
+  <textarea id="message" name="message" rows="5" placeholder="Write your message here" required></textarea>
+
+  <button type="submit">Send Message</button>
+</form>
+
+<footer>
+  Pack Your Bag's Services Limited.
+</footer>
+<script>
+document.getElementById("contactForm").addEventListener("submit", function(e) {
+  e.preventDefault(); // Prevent actual form submission
+
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const message = document.getElementById("message").value.trim();
+
+  if (!name || !email || !message) {
+    alert("Please fill all fields.");
+    return;
+  }
+
+  const contactMessages = JSON.parse(localStorage.getItem("contactMessages")) || [];
+  contactMessages.push({ name, email, message });
+  localStorage.setItem("contactMessages", JSON.stringify(contactMessages));
+
+  alert("Message sent!");
+  this.reset();
+});
+</script>
+
 </body>
 </html>

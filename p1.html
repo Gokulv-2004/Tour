@@ -1,82 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image.webp" href="/image/icon.webp" >
-    <link rel="stylesheet" href="p1.css">
-    <title>Pack Your Bag</title>
-    <script src="https://kit.fontawesome.com/83bd40f7aa.js" crossorigin="anonymous"></script>
-    <script src="p1.js" ></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pack Your Bag</title>
+  <link rel="icon" type="image/webp" href="/image/icon.webp" />
+  <link rel="stylesheet" href="p1.css" />
+  <script src="https://kit.fontawesome.com/83bd40f7aa.js" crossorigin="anonymous"></script>
 </head>
 <body>
-   <header> 
-        <div >
-        <img  src="/image/icon.webp" alt=" logo" height="150" class="logoimage">
-         <h1 class="logo-font"> PACK  YOUR   BAG'S <i class="fa-solid fa-person-walking-luggage"></i></h1> 
-          
-        </div><br>
+  <div class="main">
+    <header>
+      <div class="header-content">
+        <img src="/image/icon.webp" alt="Logo" class="logo" />
+        <h1 class="logo-font">Pack Your Bag <i class="fa-solid fa-person-walking-luggage"></i></h1>
+      </div>
+      <nav>
+        <a href="p1.html"><i class="fa-solid fa-house-chimney"></i> Home</a>
+        <a href="package.html"><i class="fa-brands fa-bluesky"></i> Travel Package</a>
+        <a href="contact.html"><i class="fa-solid fa-phone"></i> Contact</a>
+        <a href="booking.html"><i class="fa-solid fa-heart"></i> Book Now</a>
+      </nav>
     </header>
-    <nav> 
-        <a href="p1.html"><h4> <i class="fa-solid fa-house-chimney"></i>   Home</h4></a>
-        <a href="package.html"> <h4><i class="fa-brands fa-bluesky"></i>     Travel Package </h4><a>
-        <a href="contact.html"><h4> <i class="fa-solid fa-phone"></i>  Contact </h4  ></a>
-        <a href="booking.html"><h4><i class="fa-solid fa-heart"></i> Book now </h4></a>    
-    <br></nav>
+
     <main>
-       
-        <div><hr>
-            <h2 id="h2"> Famous place's in Karnataka</h2>
+      <section>
+        <h2>Famous Places in Karnataka</h2>
+        <div class="gallery">
+          <a href="package.html#one"><img src="/image/image1.jpg" alt="Mysore" /></a>
+          <a href="package.html#two"><img src="/image/image2.jpg" alt="Lalbagh" /></a>
+          <a href="package.html#three"><img src="/image/image3.jpg" alt="Hampi" /></a>
+          <a href="package.html#four"><img src="/image/image4.webp" alt="Gokarna" /></a>
+          <a href="package.html#five"><img src="/image/image5.webp" alt="Murudeshwara" /></a>
+          <a href="package.html#six"><img src="/image/image6.webp" alt="Dandeli" /></a>
+          <a href="package.html#seven"><img src="/image/image7.webp" alt="Shravanabelagola" /></a>
+          <a href="package.html#eight"><img src="/image/image8.webp" alt="Chikmagalur" /></a>
+          <a href="package.html#nine"><img src="/image/image9.webp" alt="ISKCON" /></a>
+          <a href="package.html#ten"><img src="/image/image10.webp" alt="Jog Falls" /></a>
+        </div>
+      </section>
+<div class="places-container" id="placesContainer">
+  <!-- Places will be loaded here dynamically -->
+</div>
+      <section class="season-section">
+        <h2>🌸 Spring (March - May)</h2>
+        <div class="season-gallery">
+          <img src="image/tulipflower.avif" alt="Tulip Flower" />
+          <img src="image/Coorg.jpg" alt="Coorg" />
+          <img src="image/west bengal.webp" alt="West Bengal" />
+          <img src="image/oote.jpg" alt="Ooty" />
+        </div>
 
-        </div > 
-       
-        <div class="photos">
-            <img src="/image/image1.jpg" alt="mysore" > 
-            <img src="/image/image2.jpg"  alt="lalbagh">
-            <img src="/image/image3.jpg"   alt="hampi">
-            <img src="/image/image4.webp"  alt="gokarna">
-            <img src="/image/image5.webp"  alt="murudeshwara">
-            <img src="/image/image6.webp"  alt="dandeli">
-            <img src="/image/image7.webp" alt="shravanbelgola">
-            <img src="/image/image8.webp"  alt="chikmagalure">
-            <img src="/image/image9.webp" alt="iskcon">
-            <img src="/image/image10.webp" alt="jog falls">
+        <h2>☀️ Summer (June - August)</h2>
+        <div class="season-gallery">
+          <img src="image/ladakh.avif" alt="Ladakh" />
+          <img src="image/MANALI.jpg" alt="Manali" />
+          <img src="image/munnar.webp" alt="Munnar" />
+          <img src="image/tawang.jpg" alt="Tawang" />
         </div>
-        <h1 class="h1pack"> SEASONAL PACKAGE</h1><br>
-        <div id="season">
-        <div class="spring1">
-            <h1>🌸 **Spring (March - May) 🌸 </h1>
-            <div><img class="spring" src="image/tulipflower.avif" alt="" ></div>
-            <div><img class="spring" src="image/west bengal.webp" alt=""></div>
-            <div><img class="spring" src="image/oote.jpg" alt=""></div>
-            <div><img class="spring" src="image/Coorg.jpg" alt=""></div>
-        </div>
-        <div class="summer">
-            <h1>☀️ **Summer (June - August)**</h1>
-            <div id="la"><img src="image/ladakh.avif" alt="" ></div>
-            <div><img src="image/MANALI.jpg" alt=""></div>
-            <div><img src="image/munnar.webp" alt=""></div>
-            <div><img src="image/tawang.jpg" alt=""></div>
-        </div>
-        <div class="monsoon">
-            <h1>🌧️ **Monsoon (July - September)**</h1>
-            <div><img src="image/udaipur.jpg" alt="" ></div>
-            <div><img src="image/goa.avif" alt=""></div>
-            <div><img src="image/meghalaya.jpg" alt=""></div>
-            <div><img src="image/Wayanad.avif" alt=""></div>
-        </div>
-        <div class="winter">
-            <h1>❄️ **Winter (October - February)**</h1>
-            <div><img src="image/jaipur.jpg" alt="" ></div>
-             <div><img src="image/varanasi.jpg" alt=""></div>
-            <div><img src="image/rann.jpg" alt=""></div>
-            <div> <img src="image/andaman-nicobar-beach.jpg" alt=""></div>
-        </div></div>
 
+        <h2>🌧️ Monsoon (July - September)</h2>
+        <div class="season-gallery">
+          <img src="image/udaipur.jpg" alt="Udaipur" />
+          <img src="image/goa.avif" alt="Goa" />
+          <img src="image/meghalaya.jpg" alt="Meghalaya" />
+          <img src="image/Wayanad.avif" alt="Wayanad" />
+        </div>
+
+        <h2>❄️ Winter (October - February)</h2>
+        <div class="season-gallery">
+          <img src="image/jaipur.jpg" alt="Jaipur" />
+          <img src="image/varanasi.jpg" alt="Varanasi" />
+          <img src="image/rann.jpg" alt="Rann" />
+          <img src="image/andaman-nicobar-beach.jpg" alt="Andaman & Nicobar" />
+        </div>
+      </section>
+
+      <p id="userRole" class="user-role"></p>
+      <div class="logout">
+        <a href="login.html">Logout</a>
+      </div>
     </main>
-    
-    
-    
-   <hr> <footer>Thanks for choosing our serice</i></b></pre> </footer>
+
+    <footer>
+      <hr />
+      <p>&copy; 2025 Pack Your Bag Tours</p>
+    </footer>
+  </div>
+
+  <script>
+    const role = sessionStorage.getItem("role");
+    document.getElementById("userRole").innerText = role
+      ? `You are logged in as: ${role}`
+      : `You are not logged in.`;
+      /* */
+  const places = JSON.parse(localStorage.getItem('places')) || [];
+    const container = document.getElementById('placesContainer');
+
+    if (places.length === 0) {
+      container.innerHTML = "<p style='text-align:center;'>No places available. Please add from the admin panel.</p>";
+    } else {
+      places.forEach(place => {
+        const card = document.createElement("div");
+        card.className = "place-card";
+
+        card.innerHTML = `
+          <img src="${place.img}" alt="${place.name}">
+          <h3>${place.name}</h3>
+          <p>${place.desc}</p>
+          <div class="price">₹${place.price}</div>
+        `;
+
+        container.appendChild(card);
+      });
+    }
+  </script>
 </body>
-</html> 
+</html>

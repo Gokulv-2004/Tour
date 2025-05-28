@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Admin Dashboard - Pack Your Bag</title>
+  <link rel="icon" type="image/webp" href="/image/icon.webp" />
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f2f2f2;
+    padding: 20px;
+    margin: 0;
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .nav {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .nav button {
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  .nav button:hover {
+    background-color: #0056b3;
+  }
+  .section {
+    display: none;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    margin-bottom: 40px;
+  }
+  .section.active {
+    display: block;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+  }
+  th {
+    background-color: #007bff;
+    color: white;
+  }
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  input, select {
+    border-radius: 8px;
+    padding: 8px;
+    margin: 5px 0;
+    width: 90%;
+    max-width: 400px;
+  }
+  button.action-btn {
+    background-color: #007a99;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  button.action-btn:hover {
+    background-color: #005f73;
+  }
+  .delete-btn {
+    background-color: #d9534f;
+    padding: 6px 10px;
+    border-radius: 4px;
+  }
+  .delete-btn:hover {
+    background-color: #c9302c;
+  }
+  footer {
+    text-align: center;
+    font-size: 0.9em;
+    color: #555;
+    margin-top: 40px;
+  }
+</style>
+</head>
+<body>
+
+  <h1>Admin Dashboard - Pack Your Bag</h1>
+
+  <div class="nav">
+    <button onclick="showSection('bookingsSection')">View Bookings</button>
+    <button onclick="showSection('placesSection')">Manage Places</button>
+    <button onclick="showSection('contactMessagesSection')">Contact Messages</button>
+    <button onclick="location.href='p1.html'">Go to Homepage</button>
+  </div>
+
+  <!-- BOOKINGS -->
+  <div id="bookingsSection" class="section active">
+    <div style="text-align:center; margin-bottom: 10px;">
+      <button onclick="downloadCSV()" class="action-btn">Download Bookings CSV</button>
+      <button onclick="clearBookings()" class="action-btn" style="background-color:#d9534f; margin-left: 10px;">Clear All Bookings</button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th><th>Phone</th><th>Email</th><th>Members</th>
+          <th>Gender</th><th>Date</th><th>From</th><th>To</th>
+          <th>Package</th><th>Season</th><th>Payment</th><th>Total Cost</th>
+        </tr>
+      </thead>
+      <tbody id="bookingTable"></tbody>
+    </table>
+  </div>
+
+  <!-- MANAGE PLACES -->
+  <div id="placesSection" class="section">
+    <h2>Add New Place</h2>
+    <input type="text" id="placeName" placeholder="Place Name" />
+    <input type="text" id="placeDesc" placeholder="Description" />
+    <input type="text" id="placeImage" placeholder="Image URL" />
+    <input type="number" id="placePrice" placeholder="Price" />
+    <br />
+    <button onclick="addNewPlace()" class="action-btn">Add Place</button>
+
+    <hr />
+
+    <h2>Update Place Price</h2>
+    <select id="updatePlaceDropdown">
+      <option value="">-- Select a Place --</option>
+    </select>
+    <input type="number" id="newPlacePrice" placeholder="New Price" />
+    <br />
+    <button onclick="updatePlacePrice()" class="action-btn">Update Price</button>
+
+    <hr />
+
+    <h2>Delete a Place</h2>
+    <input type="text" id="deletePlaceName" placeholder="Place Name to Remove" />
+    <br />
+    <button onclick="removePlace()" class="action-btn" style="background-color:#d9534f;">Delete Place</button>
+  </div>
+
+  <!-- CONTACT MESSAGES -->
+  <div id="contactMessagesSection" class="section">
+    <h2>Contact Messages</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th><th>Email</th><th>Message</th><th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="contactMessagesTable">
+        <!-- Messages will load here -->
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    &copy; 2025 Pack Your Bag Tours | Admin Panel
+  </footer>
+
+<script>
+  // GLOBALS
+  let bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+  let places = JSON.parse(localStorage.getItem('places')) || [];
+  
+  function showSection(sectionId) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById(sectionId).classList.add('active');
+
+    if(sectionId === 'placesSection') {
+      populateDropdown();
+    }
+    if(sectionId === 'contactMessagesSection') {
+      loadContactMessages();
+    }
+  }
+
+  // ===== BOOKINGS =====
+  const bookingTable = document.getElementById('bookingTable');
+  function loadBookings() {
+    bookingTable.innerHTML = "";
+    if(bookings.length === 0) {
+      bookingTable.innerHTML = "<tr><td colspan='12'>No bookings available.</td></tr>";
+      return;
+    }
+    bookings.forEach(b => {
+      const row = document.createElement('tr');
+      const vals = [
+        b.name, b.phone, b.email, b.members, b.gender,
+        b.date, b.from, b.to, b.package || "N/A", b.season || "N/A",
+        b.payment, b.totalCost ? `₹${b.totalCost}` : "N/A"
+      ];
+      vals.forEach(v => {
+        const td = document.createElement('td');
+        td.textContent = v;
+        row.appendChild(td);
+      });
+      bookingTable.appendChild(row);
+    });
+  }
+
+  function clearBookings() {
+    if(confirm("Are you sure you want to delete all bookings?")) {
+      localStorage.removeItem('bookings');
+      bookings = [];
+      loadBookings();
+      alert("All bookings cleared.");
+    }
+  }
+
+  function downloadCSV() {
+    if(bookings.length === 0) {
+      alert("No bookings to download.");
+      return;
+    }
+    let csv = "Name,Phone,Email,Members,Gender,Date,From,To,Package,Season,Payment,Total Cost\n";
+    bookings.forEach(b => {
+      csv += [
+        b.name, b.phone, b.email, b.members, b.gender,
+        b.date, b.from, b.to, b.package || "N/A", b.season || "N/A",
+        b.payment, b.totalCost ? b.totalCost : "N/A"
+      ].join(",") + "\n";
+    });
+    const blob = new Blob([csv], {type:'text/csv'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'bookings.csv';
+    a.click();
+  }
+
+  // ===== PLACES =====
+  function populateDropdown() {
+    const dropdown = document.getElementById('updatePlaceDropdown');
+    dropdown.innerHTML = '<option value="">-- Select a Place --</option>';
+    if(places.length === 0) {
+      const opt = document.createElement("option");
+      opt.value = "";
+      opt.textContent = "No places available";
+      dropdown.appendChild(opt);
+    } else {
+      places.forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p.name;
+        opt.textContent = p.name;
+        dropdown.appendChild(opt);
+      });
+    }
+  }
+
+  function addNewPlace() {
+    const name = document.getElementById('placeName').value.trim();
+    const desc = document.getElementById('placeDesc').value.trim();
+    const image = document.getElementById('placeImage').value.trim();
+    const price = parseFloat(document.getElementById('placePrice').value.trim());
+
+    if(!name || !desc || !image || isNaN(price)) {
+      alert("Please fill all fields correctly to add a place.");
+      return;
+    }
+
+    // Check if place already exists
+    if(places.some(p => p.name.toLowerCase() === name.toLowerCase())) {
+      alert("Place with this name already exists.");
+      return;
+    }
+
+    places.push({ name, desc, image, price });
+    localStorage.setItem('places', JSON.stringify(places));
+
+    alert("Place added successfully!");
+    clearPlaceInputs();
+    populateDropdown();
+  }
+
+  function clearPlaceInputs() {
+    document.getElementById('placeName').value = "";
+    document.getElementById('placeDesc').value = "";
+    document.getElementById('placeImage').value = "";
+    document.getElementById('placePrice').value = "";
+  }
+
+  function updatePlacePrice() {
+    const selectedPlace = document.getElementById('updatePlaceDropdown').value;
+    const newPrice = parseFloat(document.getElementById('newPlacePrice').value.trim());
+
+    if(!selectedPlace) {
+      alert("Please select a place to update.");
+      return;
+    }
+    if(isNaN(newPrice)) {
+      alert("Please enter a valid new price.");
+      return;
+    }
+
+    const place = places.find(p => p.name === selectedPlace);
+    if(place) {
+      place.price = newPrice;
+      localStorage.setItem('places', JSON.stringify(places));
+      alert("Price updated successfully!");
+      document.getElementById('newPlacePrice').value = "";
+    } else {
+      alert("Selected place not found.");
+    }
+  }
+
+  function removePlace() {
+    const placeName = document.getElementById('deletePlaceName').value.trim();
+    if(!placeName) {
+      alert("Enter a place name to delete.");
+      return;
+    }
+    const index = places.findIndex(p => p.name.toLowerCase() === placeName.toLowerCase());
+    if(index === -1) {
+      alert("Place not found.");
+      return;
+    }
+    if(confirm(`Are you sure you want to delete "${places[index].name}"?`)) {
+      places.splice(index, 1);
+      localStorage.setItem('places', JSON.stringify(places));
+      alert("Place deleted.");
+      document.getElementById('deletePlaceName').value = "";
+      populateDropdown();
+    }
+  }
+
+  // ===== CONTACT MESSAGES =====
+  function loadContactMessages() {
+    const messages = JSON.parse(localStorage.getItem("contactMessages")) || [];
+    const tbody = document.getElementById('contactMessagesTable');
+    tbody.innerHTML = "";
+
+    if(messages.length === 0) {
+      tbody.innerHTML = "<tr><td colspan='4'>No contact messages.</td></tr>";
+      return;
+    }
+
+    messages.forEach((msg, idx) => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${escapeHtml(msg.name)}</td>
+        <td>${escapeHtml(msg.email)}</td>
+        <td>${escapeHtml(msg.message)}</td>
+        <td><button class="delete-btn" onclick="deleteMessage(${idx})">Delete</button></td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function deleteMessage(index) {
+    if(confirm("Are you sure you want to delete this message?")) {
+      const messages = JSON.parse(localStorage.getItem("contactMessages")) || [];
+      messages.splice(index, 1);
+      localStorage.setItem("contactMessages", JSON.stringify(messages));
+      loadContactMessages();
+    }
+  }
+
+  // ===== Utilities =====
+  // Escape HTML to prevent XSS
+  function escapeHtml(text) {
+    if (!text) return "";
+    return text.replace(/[&<>"']/g, function(m) {
+      switch(m) {
+        case '&': return '&amp;';
+        case '<': return '&lt;';
+        case '>': return '&gt;';
+        case '"': return '&quot;';
+        case "'": return '&#39;';
+        default: return m;
+      }
+    });
+  }
+
+  // Initial load
+  loadBookings();
+  populateDropdown();
+
+</script>
+
+</body>
+</html>
