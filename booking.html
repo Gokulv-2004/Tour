@@ -19,32 +19,15 @@
     </label><br><br>
     <label>Tour Date: <input type="date" id="date" required></label><br><br>
     <label>From: <input type="text" id="from" required></label><br><br>
-   <label>INNER KARNATAKA'S Package:
-  <select id="package">
-    <option value="MYSORE">MYSORE - ₹1,500</option>
-    <option value="LALBAGH-Bangalore">LALBAGH - ₹1,000</option>
-    <option value="HAMPI">HAMPI - ₹2,200</option>
-    <option value="GOKARNA">GOKARNA - ₹2,500</option>
-    <option value="MURUDESHWARA">MURUDESHWARA - ₹2300</option>
-    <option value="DANDELI">DANDELI - ₹2700</option>
-    <option value="SHRAVANBELGOLA">SHRAVANBELGOLA - ₹1800</option>
-    <option value="CHIKMAGALURE">CHIKMAGALURE - ₹2400</option>
-    <option value="ISKCON">ISKCON - ₹1600</option>
-    <option value="JOG FALLS">JOG FALLS - ₹2100</option>
-    <option value="NULL">--NULL--</option>
-  </select>
-</label><br><br>
-   <label>Seasonal Package:
-  <select id="season">
-    <option value="SPRING">SPRING - ₹15,000</option>
-    <option value="SUMMER">SUMMER - ₹15,000</option>
-    <option value="MONSOON">MONSOON - ₹15,000</option>
-    <option value="WINTER">WINTER - ₹15,000</option>
-    <option value="NULL">--NULL--</option>
-  </select>
-</label><br><br>
+    
+    <label>INNER KARNATAKA'S Package:
+      <select id="package" required>
+        <option value="">-- Select a Package --</option>
+      </select>
+    </label><br><br>
+
     <label>Payment Method:
-      <select id="payment">
+      <select id="payment" required>
         <option value="UPI">UPI</option>
         <option value="Credit Card">Credit Card</option>
         <option value="Debit Card">Debit Card</option>
@@ -54,52 +37,48 @@
     <button type="submit">Book Now</button>
   </form>
 
- <script>
-  const prices = {
-    packages: {
-      "MYSORE": 2000,
-      "LALBAGH-Bangalore": 1500,
-      "HAMPI": 2500,
-      "GOKARNA": 2200,
-      "MURUDESHWARA": 2300,
-      "DANDELI": 2700,
-      "SHRAVANBELGOLA": 1800,
-      "CHIKMAGALURE": 2400,
-      "ISKCON": 1600,
-      "JOG FALLS": 2100,
-      "NULL":""
-    },
+<script>
+  let prices = {
+    packages: {},
     seasons: {
       "SPRING": 1000,
       "SUMMER": 1500,
       "MONSOON": 1300,
       "WINTER": 1700,
-      "NULL":""
+      "NULL": ""
     }
   };
-  const packageSelect = document.getElementById('package');
-  const seasonSelect = document.getElementById('season');
 
-  packageSelect.addEventListener('change', () => {
-    if (packageSelect.value !== "") {
-      seasonSelect.value = ""; // Deselect season if tour is selected
-    }
-  });
+  // Load places from places.json
+  async function loadPlaces() {
+    try {
+      const response = await fetch('places.json');
+      if (!response.ok) throw new Error("Failed to load places.json");
 
-  seasonSelect.addEventListener('change', () => {
-    if (seasonSelect.value !== "") {
-      packageSelect.value = ""; // Deselect tour if season is selected
+      const places = await response.json();
+      const packageSelect = document.getElementById('package');
+
+      places.forEach(place => {
+        const option = document.createElement('option');
+        option.value = place.name;
+        option.textContent = `${place.name} - ₹${place.price}`;
+        packageSelect.appendChild(option);
+
+        prices.packages[place.name] = place.price;
+      });
+    } catch (err) {
+      console.error("Error loading places.json:", err);
+      alert("Could not load packages. Please try again later.");
     }
-  });
+  }
 
   document.getElementById('bookingForm').addEventListener('submit', function (e) {
     e.preventDefault();
 
     const package = document.getElementById('package').value;
-    const season = document.getElementById('season').value;
     const members = parseInt(document.getElementById('members').value);
 
-    const total = (prices.packages[package] || 0) + (prices.seasons[season] || 0);
+    const total = prices.packages[package] || 0;
     const totalCost = total * members;
 
     const booking = {
@@ -111,7 +90,6 @@
       date: document.getElementById('date').value,
       from: document.getElementById('from').value,
       package: package,
-      season: season,
       payment: document.getElementById('payment').value,
       totalCost: totalCost
     };
@@ -122,8 +100,10 @@
 
     alert(`Booking Confirmed! Total Price: ₹${totalCost}`);
     document.getElementById('bookingForm').reset();
+    window.location.href = '/'
   });
-</script>
 
+  loadPlaces(); 
+</script>
 </body>
 </html>

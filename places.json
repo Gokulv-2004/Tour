@@ -2,61 +2,61 @@
   {
     "name": "Mysore Palace",
     "desc": "A historical palace located in the city of Mysore, known for its royal heritage and architecture.",
-    "img": "./images/image1.jpg",
+    "img": "./image/Mysore_Palace_Morning.jpg",
     "price": "1200"
   },
   {
     "name": "Lalbagh Botanical Garden",
     "desc": "A lush botanical garden in Bangalore, home to diverse flora and a majestic glasshouse.",
-    "img": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Lalbagh_Glasshouse.jpg",
+    "img": "./image/Glasshouse_and_fountain_at_lalbagh.jpg",
     "price": "800"
   },
   {
     "name": "Hampi",
     "desc": "A UNESCO World Heritage Site featuring ancient ruins and temples from the Vijayanagara Empire.",
-    "img": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Virupaksha_Temple%2C_Hampi.jpg",
+    "img": "./image/Wide_angle_of_Galigopuram_of_Virupaksha_Temple,_Hampi_(04)_(cropped).jpg",
     "price": "1500"
   },
   {
     "name": "Gokarna",
     "desc": "A peaceful coastal town famous for its beaches and Mahabaleshwar Temple.",
-    "img": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Om_Beach%2C_Gokarna.jpg",
+    "img": "./image/Delight_india.jpg",
     "price": "1800"
   },
   {
     "name": "Murudeshwara",
     "desc": "A coastal town best known for the towering Shiva statue and beachside temple.",
-    "img": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Murudeshwar_Shiva_Statue.jpg",
+    "img": "./image/Shiva_Statue_Murdeshwara_Temple.jpg",
     "price": "1600"
   },
   {
     "name": "Dandeli",
     "desc": "Adventure hotspot offering white water rafting, jungle safaris, and rich biodiversity.",
-    "img": "https://upload.wikimedia.org/wikipedia/commons/9/9e/Dandeli_River_Rafting.jpg",
+    "img": "./image/Dandeli_1.jpg",
     "price": "1400"
   },
   {
     "name": "Shravanabelagola",
     "desc": "A Jain pilgrimage site featuring a colossal statue of Lord Bahubali.",
-    "img": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Gomateshwara_Shravanabelagola.jpg",
+    "img": "./image/1280px-Shravanabelagola_Hillview.jpg",
     "price": "1300"
   },
   {
     "name": "Chikmagalur",
     "desc": "Hill station famous for coffee plantations, lush green hills, and pleasant climate.",
-    "img": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Chikmagalur_Coffee_Estate.jpg",
+    "img": "./image/hebbe-falls.jpg",
     "price": "2000"
   },
   {
     "name": "ISKCON Temple Bangalore",
     "desc": "A modern and spiritual temple dedicated to Lord Krishna with cultural activities.",
-    "img": "https://upload.wikimedia.org/wikipedia/commons/7/7e/ISKCON_Temple_Bangalore.jpg",
+    "img": "./image/ISKCON_Banglaore_Temple.jpg",
     "price": "900"
   },
   {
     "name": "Jog Falls",
     "desc": "One of the highest plunge waterfalls in India, located in the Shimoga district.",
-    "img": "https://upload.wikimedia.org/wikipedia/commons/4/4c/Jog_Falls.jpg",
+    "img": "./image/Jog_Falls_05092016.jpg",
     "price": "1700"
   }
 ]

@@ -40,20 +40,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 /* admin page access of drop down*/
-const places = [
-  {
-    name: "goa",
-    desc: "Peaceful hill station in Tamil Nadu",
-    img: "oote.jpg",
-    price: 2500
-  },
-  {
-    name: "don",
-    desc: "Famous for beaches and parties",
-    img: "rann,jpg",
-    price: 4000
+var places=[];
+async function loadPlaces() {
+    try {
+      const response = await fetch('places.json');
+      if (!response.ok) throw new Error('Failed to load places.json');
+      places = await response.json();
+      populateDropdown();
+    } catch (err) {
+      console.error(err);
+      alert("Error loading places.");
+    }
   }
-  // Add more if needed
-];
+
+
 
 localStorage.setItem('places', JSON.stringify(places));
